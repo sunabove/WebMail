@@ -44,7 +44,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Summation of Two Numbers</title>
+<title>Sum of Two Numbers</title>
 </head>
 <body>
 
