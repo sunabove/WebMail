@@ -51,9 +51,9 @@
 <h1>Sum of Two Numbers</h1>
 
 <form>
-	a = <input type="text" name="a" value="<%= a %>" size=3 /> <br/><br/>
-	b = <input type="text" name="b" value="<%= b %>" size=3 /> <br/><br/>
-	c = <input type="text"          value="<%= c %>" size=3 readonly></input> <br/><br/>
+	a = <input type="number" step="any" name="a" value="<%= a %>" size=3 /> <br/><br/>
+	b = <input type="number" step="any" name="b" value="<%= b %>" size=3 /> <br/><br/>
+	c = <input type="number" step="any"          value="<%= c %>" size=3 readonly></input> <br/><br/>
 	    <input type="submit" value="Sum" />
 </form>
 
