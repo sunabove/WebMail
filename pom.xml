@@ -27,21 +27,17 @@
 	</build>
 
 	<dependencies>
-		<!-- lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.16</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		<!-- slf4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.30</version>
 		</dependency>
-
 		<!-- SLF4J Bridge -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

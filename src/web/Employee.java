@@ -3,30 +3,29 @@ package web;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-@Getter 
+@Getter
 @Setter
 @ToString
+@Slf4j
 
 public class Employee {
-	
-	private String empId;
-	private String firstName;
-	private String lastName;
+	private String empId ;
+	private String firstName ;
+	private String lastName ;
 	private String phoneNo;
 	
-	private void testLog() {
-		log.debug( "Here I am!");
+	public void testLog() {
+		this.log.debug( "Here, I am!");
 	}
-	
-	public static void main(String [] args) {
+
+	public static void main(String[] args) {
 		Employee emp = new Employee();
-		String empId = emp.getEmpId();
-		String toStr = emp.toString();
 		
-		var out = System.out;
-		out.println( "empId = " + empId );
-		out.println( "emp   = " + toStr );
+		String empId = emp.getEmpId() ; 
+		
+		System.out.println( "Hello World!" );
+		System.out.println( "empId = " + empId );
+		System.out.println( "toString 1 = " + emp.toString() );
 		
 		emp.testLog();
 	}
