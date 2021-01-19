@@ -57,5 +57,6 @@
 <c:if test="${ logInSuccess }" >
 	<h2> 웹 메일 시스템에 오신 것을 환영합니다. </h2>
 </c:if>
+
 </body>
 </html>
