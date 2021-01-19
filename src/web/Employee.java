@@ -3,13 +3,14 @@ package web;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+
 @Getter
 @Setter
 @ToString
-@Slf4j
 
 public class Employee {
-	private String empId ;
+	private String id ;
 	private String firstName ;
 	private String lastName ;
 	private String phoneNo;
@@ -21,7 +22,7 @@ public class Employee {
 	public static void main(String[] args) {
 		Employee emp = new Employee();
 		
-		String empId = emp.getEmpId() ; 
+		String empId = emp.getId() ; 
 		
 		System.out.println( "Hello World!" );
 		System.out.println( "empId = " + empId );
