@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @ToString
 
-public class Employee {
+public class Employee implements java.io.Serializable {
 	private String id ;
 	private String firstName ;
 	private String lastName ;
