@@ -37,26 +37,46 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>로그인 화면</title>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h1>웹 메일 시스템</h1>
-
-<c:if test="${ not logInSuccess }" >
-	<form method="post">
-		id : <input type="text" name="name" value="" sie=4/> </br></br>
-		pass: <input type="password" name="passwd" value="" sie=4/> </br></br>
-			<input type="submit" value="로그인" />
-	</form>
-</c:if>
-
-<c:if test="${ logInSuccess }" >
-	<h2> 웹 메일 시스템에 오신 것을 환영합니다. </h2>
-</c:if>
+<div class="container">
+  <br/>
+  <h2> 웹 메일 시스템 로그인 </h2>
+  <c:if test="${ not logInSuccess }">
+	  <form method="post">
+	    <div class="form-group">
+	      <label for="email">아이디:</label>
+	      <input type="text" class="form-control" id="email" placeholder="아이디를 입력하세요." name="name" />
+	    </div>
+	    <div class="form-group">
+	      <label for="pwd">패스워드:</label>
+	      <input type="password" class="form-control" id="pwd" placeholder="패스워드를 입력하세요." name="passwd" />
+	    </div>
+	    <div class="form-group form-check">
+	      <label class="form-check-label">
+	        <input class="form-check-input" type="checkbox" name="remember" /> Remember me
+	      </label>
+	    </div>
+	    <button type="submit" class="btn btn-primary">로그인</button>
+	  </form>
+  </c:if>
+  
+  <c:if test="${ logInSuccess }">
+  	<br/>
+  	<h4> 웹 메일 시스템에 오신 것을 환영합니다. </h4>
+  </c:if>
+  
+</div>
 
 </body>
 </html>
