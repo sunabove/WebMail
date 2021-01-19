@@ -13,8 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 
 public class User implements java.io.Serializable {
 	private String id ;
-	private String name ;
+	private String name;
 	private String phoneNo;
+	private String passwd;
 	
 	public static void main(String[] args) {
 		User user = new User();

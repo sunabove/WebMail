@@ -20,6 +20,8 @@ public class UserMapperTest {
 		
 		User user ;
 		user = new User(); 
+		user.setName( "john");
+		user.setPasswd( "admin");
 		
 		mapper.insert(user);
 		
@@ -30,7 +32,9 @@ public class UserMapperTest {
 		mapper.update(user);
 		
 		user = mapper.selectOne(12);
-		mapper.delete(user);
+		if( user != null ) { 
+			mapper.delete(user);
+		}
 		
 		List<User> users = mapper.selectAll();
 		

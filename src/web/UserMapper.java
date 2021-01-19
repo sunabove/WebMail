@@ -21,8 +21,5 @@ public interface UserMapper {
 	int update(User user);
 	
 	@Delete("DELETE FROM user WHERE id = #{id} ")
-	int delete(User user);
-
-	@Delete("DELETE FROM user WHERE id = #{id} ")
-	int delete(int id);
+	int delete(User user); 
 }

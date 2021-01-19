@@ -21,16 +21,16 @@ public class EmployeeMapperTest {
 		Employee employee ;
 		employee = new Employee();
 		
-		mapper.insertEmployee(employee);
+		mapper.insert(employee);
 		
 		employee = mapper.selectOne(1);
 		System.out.println(employee); 
 		
 		employee.setFirstName( "ABCDEF" );
-		mapper.updateEmployee(employee);
+		mapper.update(employee);
 		
 		employee = mapper.selectOne(12);
-		mapper.deleteEmployee(employee);
+		mapper.delete(employee);
 		
 		List<Employee> employees = mapper.selectAll();
 		
