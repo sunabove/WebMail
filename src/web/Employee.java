@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @ToString
 
-public class Employee {
+public class Employee implemets Serial{
 	private String id ;
 	private String firstName ;
 	private String lastName ;
