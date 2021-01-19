@@ -10,8 +10,7 @@
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="org.mariadb.jdbc.Driver" />
-				<property name="url"
-					value="jdbc:mariadb://localhost:3306/XCLICK_DEPLOY3_LARGE_DATA" />
+				<property name="url" value="jdbc:mariadb://localhost:3306/XCLICK_DEPLOY3_LARGE_DATA" />
 				<property name="username" value="XCLICK_DEPLOY3" />
 				<property name="password" value="admin" />
 

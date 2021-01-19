@@ -10,5 +10,12 @@
 
 <h1> Hello ... ! </h1>
 
+<a href="select_employee.jsp">Select Employee</a> <br/>
+
+<br/>
+
+<a href="sum_jstl.jsp">Sum JSTL</a> <br/>
+<a href="sum_scriptlet.jsp">Sum ScriptLet</a> <br/>
+
 </body>
 </html>
