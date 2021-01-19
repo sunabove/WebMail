@@ -17,6 +17,8 @@ public class User implements java.io.Serializable {
 	private String phoneNo;
 	private String passwd;
 	
+	// 
+	
 	public static void main(String[] args) {
 		User user = new User();
 		
