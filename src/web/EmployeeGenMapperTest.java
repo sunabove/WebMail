@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class UserMapperTest {
+public class EmployeeGenMapperTest {
 
 	public static void main(String[] args) throws Exception {
 		InputStream inputStream = Resources.getResourceAsStream( "mybatis-config.xml" );
@@ -16,28 +16,27 @@ public class UserMapperTest {
 		
 		SqlSession session = sqlSessionFactory.openSession();
 		
-		UserMapper mapper = session.getMapper(UserMapper.class);
+		EmployeeGenMapper mapper = session.getMapper(EmployeeGenMapper.class);
 		
-		User user ;
-		user = new User(); 
+		Employee employee ;
+		employee = new Employee();
 		
-		mapper.insert(user);
+		mapper.insert(employee);
 		
-		user = mapper.selectOne(1);
-		System.out.println(user); 
+		employee = mapper.selectByPrimaryKey( 1 );
+		System.out.println(employee); 
 		
-		user.setName( "ABCDEF" );
-		mapper.update(user);
+		employee.setFirstName( "ABCDEF" );
+		mapper.updateByExample( employee, employee);
 		
-		user = mapper.selectOne(12);
-		mapper.delete(user);
+		employee = mapper.selectByPrimaryKey(12);
+		mapper.delete(employee);
 		
-		List<User> users = mapper.selectAll();
+		List<Employee> employees = mapper.selectAll();
 		
-		for( User e : users ) {
+		for( Employee e : employees ) {
 			System.out.println( e );
 		} 
-		
 		session.commit();
 	}
 

@@ -6,23 +6,23 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
-	@Select( "SELECT * FROM employee WHERE id = #{id}" )	
-	Employee selectOne(int id);
+	@Select( "SELECT * FROM user WHERE id = #{id}" )	
+	User selectOne(int id);
 
-	@Select( "SELECT * FROM employee" )
-	List<Employee> selectAll();
+	@Select( "SELECT * FROM user" )
+	List<User> selectAll();
 
-	@Insert( "INSERT INTO employee( id, first_name, last_name, phone_no ) "
-			+ " VALUES( #{id}, #{firstName}, #{lastName}, #{phoneNo} )" )
-	int insertEmployee(Employee employee);
+	@Insert( "INSERT INTO user( id, name, passwd, phone_no ) "
+			+ " VALUES( #{id}, #{name}, #{passwd}, #{phoneNo} )" )
+	int insert(User user);
 
-	@Update( "UPDATE employee SET first_name = #{firstName}, last_name = #{lastName}, phone_no = #{phoneNo} "
+	@Update( "UPDATE user SET name = #{name}, passwd = #{passwd}, phone_no = #{phoneNo} "
 			+ " WHERE id = #{id} " )
-	int updateEmployee(Employee employee);
+	int update(User user);
 	
-	@Delete("DELETE FROM employee WHERE id = #{id} ")
-	int deleteEmployee(Employee employee);
+	@Delete("DELETE FROM user WHERE id = #{id} ")
+	int delete(User user);
 
-	// delete("deleteAuthor", 5)
-	int deleteEmployee(int id);
+	@Delete("DELETE FROM user WHERE id = #{id} ")
+	int delete(int id);
 }
