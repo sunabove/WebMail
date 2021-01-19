@@ -1,45 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
-<%
-	Object a = request.getParameter( "a" ) ; 
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
-	try{
-		a = Double.parseDouble("" + a);
-	}catch(Exception e) {
-		a = 0 ; 
-	}finally {
-		Double d = Double.parseDouble("" + a);
-		if( d == d.intValue() ) {
-			a = d.intValue();
-		}
-	}
-
-	Object b = request.getParameter( "b" ) ;
-	try{
-		b = Double.parseDouble("" + b);
-	}catch(Exception e) {
-		b = 0 ; 
-	}finally {
-		Double d = Double.parseDouble("" + b);
-		if( d == d.intValue() ) {
-			b = d.intValue();
-		}
-	} 
-	
-	Object c = "0";
-	try { 
-		c = Double.parseDouble( "" + a) + Double.parseDouble( "" + b);
-	} catch ( Exception e) {
-		c = 0 ;
-	} finally {
-		Double d = Double.parseDouble("" + c);
-		if( d == d.intValue() ) {
-			c = d.intValue();
-		}
-	}
-%>
-
+<c:set var="a" value="${ param.a }"/>
+<c:set var="b" value="${ param.b }"/>
+<c:set var="c" value="${ a + b }"/>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,9 +17,9 @@
 <h1>Sum of Two Numbers</h1>
 
 <form>
-	a = <input type="number" step="any" name="a" value="<%= a %>" size=3 /> <br/><br/>
-	b = <input type="number" step="any" name="b" value="<%= b %>" size=3 /> <br/><br/>
-	c = <input type="number" step="any"          value="<%= c %>" size=3 readonly></input> <br/><br/>
+	a = <input type="number" step="any" name="a" value="<c:out value='${ a }'/>" size=3 /> <br/><br/>
+	b = <input type="number" step="any" name="b" value="${ b }" size=3 /> <br/><br/>
+	c = <input type="number" step="any"          value="${ c }"                  size=3 readonly></input> <br/><br/>
 	    <input type="submit" value="Sum" />
 </form>
 
