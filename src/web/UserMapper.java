@@ -9,8 +9,9 @@ public interface UserMapper {
 	@Select( "SELECT * FROM user WHERE id = #{id}" )	
 	User selectOne(int id);
 	
-	@Select( "SELECT * FROM user WHERE name = #{name} AND passwd = #{passwd}" )
-	User logIn(String name, String passwd); 
+	@Select( "SELECT * FROM user WHERE name=#{name} AND passwd = #{passwd}" )
+	User logIn( User user );
+	//User logIn( String name, String passwd );
 
 	@Select( "SELECT * FROM user" )
 	List<User> selectAll();

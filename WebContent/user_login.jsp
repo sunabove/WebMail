@@ -18,10 +18,23 @@
 	
 	UserMapper mapper = sess.getMapper(UserMapper.class);
 	
-	User user ;
-	user = new User(); 
-	user.setName( "john");
-	user.setPasswd( "admin");
+	String name = request.getParameter( "name" );
+	String passwd = request.getParameter( "passwd" );
+	
+	User temp = new User();
+	temp.setName( name );
+	temp.setPasswd( passwd );
+	
+	User user = mapper.logIn( temp );
+	
+	System.out.println( "user = " + user );
+	
+	boolean logInSuccess = ( user != null ) ; 
+	
+	System.out.println( "logInSuccess = " + logInSuccess );
+	
+	request.setAttribute( "logInSuccess" , logInSuccess);
+	
 %>
 
 <!DOCTYPE html>
@@ -34,11 +47,16 @@
 
 <h1>웹 메일 시스템</h1>
 
-<form method="post">
-	id : <input type="text" name="name" value="" sie=4/> </br></br>
-	pass: <input type="password" name="passwd" value="" sie=4/> </br></br>
-		<input type="submit" value="로그인" />
-</form>
+<c:if test="${ ! logInsucess }" >
+	<form method="post">
+		id : <input type="text" name="name" value="" sie=4/> </br></br>
+		pass: <input type="password" name="passwd" value="" sie=4/> </br></br>
+			<input type="submit" value="로그인" />
+	</form>
+</c:if>
 
+<c:if test="${ logInsucess }" >
+	<h2> 웹 메일 시스템에 오신 것을 환영합니다. </h2>
+</c:if>
 </body>
 </html>
