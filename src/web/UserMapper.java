@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.*;
 
 @Mapper
-public interface EmployeeMapper {
+public interface UserMapper {
 	@Select( "SELECT * FROM employee WHERE id = #{id}" )	
 	Employee selectOne(int id);
 

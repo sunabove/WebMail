@@ -13,12 +13,15 @@
 				<property name="url" value="jdbc:mariadb://localhost:3306/XCLICK_DEPLOY3_LARGE_DATA" />
 				<property name="username" value="XCLICK_DEPLOY3" />
 				<property name="password" value="admin" />
-
 			</dataSource>
 		</environment>
 	</environments>
 	
 	<mappers>
+		
 		<mapper class="web.EmployeeMapper" />
+		
+		<mapper class="web.EmployeeGenMapper" />
+		
 	</mappers>
 </configuration>

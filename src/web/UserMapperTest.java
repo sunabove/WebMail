@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class EmployeeTest {
+public class UserMapperTest {
 
 	public static void main(String[] args) throws Exception {
 		InputStream inputStream = Resources.getResourceAsStream( "mybatis-config.xml" );
@@ -20,6 +20,7 @@ public class EmployeeTest {
 		
 		Employee employee ;
 		employee = new Employee();
+		
 		mapper.insertEmployee(employee);
 		
 		employee = mapper.selectOne(1);
@@ -31,10 +32,11 @@ public class EmployeeTest {
 		employee = mapper.selectOne(12);
 		mapper.deleteEmployee(employee);
 		
-		List<Employee> employees = mapper.selectAll();		
+		List<Employee> employees = mapper.selectAll();
+		
 		for( Employee e : employees ) {
 			System.out.println( e );
-		}
+		} 
 		
 		session.commit();
 	}
