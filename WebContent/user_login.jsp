@@ -34,7 +34,6 @@
 	System.out.println( "logInSuccess = " + logInSuccess );
 	
 	request.setAttribute( "logInSuccess" , logInSuccess);
-	
 %>
 
 <!DOCTYPE html>
@@ -47,7 +46,7 @@
 
 <h1>웹 메일 시스템</h1>
 
-<c:if test="${ ! logInsucess }" >
+<c:if test="${ not logInSuccess }" >
 	<form method="post">
 		id : <input type="text" name="name" value="" sie=4/> </br></br>
 		pass: <input type="password" name="passwd" value="" sie=4/> </br></br>
@@ -55,7 +54,7 @@
 	</form>
 </c:if>
 
-<c:if test="${ logInsucess }" >
+<c:if test="${ logInSuccess }" >
 	<h2> 웹 메일 시스템에 오신 것을 환영합니다. </h2>
 </c:if>
 </body>
