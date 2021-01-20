@@ -59,9 +59,11 @@
 </c:if>
 
 <c:if test="${ not empty result.rows }">
+<!-- 
 <jsp:include page="/a_team/210_mail_inbox.jsp">
 	<jsp:param name="name" value="${name}"/>
 </jsp:include>
+ -->
 </c:if>
 
   </body>

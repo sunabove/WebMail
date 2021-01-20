@@ -1,10 +1,5 @@
 package mail;
 
-/**
- * Original Source
- * https://www.tutorialspoint.com/javamail_api/javamail_api_fetching_emails.htm
- */
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -27,6 +22,16 @@ import javax.mail.Session;
 import javax.mail.Store;
 
 public class FetchingEmail {
+	
+	public static void main(String[] args) {
+		String host = "pop.gmail.com";// change accordingly
+		String mailStoreType = "pop3";
+		String username = "terabuilder@gmail.com";// change accordingly
+		String password = "";// change accordingly
+
+		// Call method fetch
+		fetch(host, mailStoreType, username, password);
+	}
 
 	public static void fetch(String pop3Host, String storeType, String user, String password) {
 		try {
@@ -190,16 +195,6 @@ public class FetchingEmail {
 		if (m.getSubject() != null)
 			System.out.println("SUBJECT: " + m.getSubject());
 
-	}
-
-	public static void main(String[] args) {
-		String host = "pop.gmail.com";// change accordingly
-		String mailStoreType = "pop3";
-		String username = "terabuilder@gmail.com";// change accordingly
-		String password = "dirdir01";// change accordingly
-
-		// Call method fetch
-		fetch(host, mailStoreType, username, password);
 	}
 
 }
