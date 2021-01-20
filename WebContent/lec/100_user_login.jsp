@@ -30,7 +30,7 @@
 				<div class="col-6 flex-nowrap justify-content-between align-items-center m-auto h-auto pb-2">
 					<div class="card flex-md-row mb-4 shadow-sm h-md-250 bg-light p-0">
 						<div class="card-body d-flex flex-column ">
-							<form class=" p-3 py-4 " method="POST" action="110_mail_list.jsp" >
+							<form class=" p-3 py-4 " method="" action="110_mail_list.jsp" >
 
 								<div class="form-group pb-3 text-primary">
 									&nbsp;

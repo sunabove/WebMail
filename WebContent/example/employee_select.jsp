@@ -21,7 +21,7 @@
          user = "XCLICK_DEPLOY3"  password = "admin"/>
  
       <sql:query dataSource = "${snapshot}" var = "result">
-         SELECT * from Employees;
+         SELECT * from Employees ;
       </sql:query>
  
       <table border = "1" width = "100%">

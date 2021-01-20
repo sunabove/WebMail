@@ -10,7 +10,6 @@
 <html lang="ko" class=" -webkit-">
 <head>
 <meta charset="UTF-8">
-<meta name="apple-mobile-web-app-title" content="CodePen">
 <meta name="viewport" content="width=device-width">
 
 <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
@@ -48,7 +47,7 @@
 			<div class="logo-container">
 				<span class="logo glyphicon glyphicon-envelope"></span>웹메일
 			</div>
-			<a class="compose-button">메일 쓰기</a>
+			<a class="compose-button">홍길동님</a>
 			<menu class="menu-segment">
 				<ul>
 					<li class="active"><a href="#">받은 메일함<span> (43)</span></a></li>
@@ -68,7 +67,11 @@
 		<div class="overlay"></div>
 		<header class="header">
 			<div class="search-box">
-				<input placeholder="검색 ..."><span class="icon glyphicon glyphicon-search"></span>
+				<input placeholder="검색 ..." type="text">
+				<!-- 
+				<input type="date" >
+				 -->
+				<span class="icon glyphicon glyphicon-search"></span>
 			</div>
 			<h1 class="page-title">
 				<a class="sidebar-toggle-btn trigger-toggle-sidebar">
@@ -107,12 +110,26 @@
 						</div>
 					</li>				
 				</ul>
-				<a href="#" class="load-more-link">Show more messages</a>
+				
+				<a href="#" class="load-more-link">
+					 <span aria-hidden="true">&laquo;</span>
+					 <span>1</span> &nbsp; 
+					 <span>2</span> &nbsp;
+					 <span>3</span> &nbsp;
+					 <span>4</span> &nbsp;
+					 <span>5</span> &nbsp;
+					 <span>6</span> &nbsp;
+					 <span>7</span> &nbsp;
+					 <span>8</span> &nbsp;
+					 <span>9</span> &nbsp;
+					 <span aria-hidden="true">&raquo;</span>
+				</a>
 			</div>
 			<div class="nano-pane">
 				<div class="nano-slider" style="height: 213px; transform: translate(0px, 0px);"></div>
 			</div>
 		</div>
+			
 	</main>
 	
 	<div id="message">
