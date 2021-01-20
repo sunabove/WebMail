@@ -19,12 +19,10 @@ public class MailService {
 	private Session session;
 	private Store store;
 	private Folder folder;
+	
+	/** POP으로는 이 소스가 동작하지 않습니다. **/
 
 	// hardcoding protocol and the folder
-	// it can be parameterized and enhanced as required
-	//private String protocol = "pop3";
-	//private String host = "pop.gmail.com";
-	//private int port = 995 ; 
 	private String protocol = "imaps";
 	private String host = "imap.gmail.com";
 	private int port = 993 ; 
