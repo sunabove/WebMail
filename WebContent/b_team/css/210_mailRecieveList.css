@@ -1267,6 +1267,11 @@ a:hover {
   bottom: 0;
   left: 0;
 }
+.nano > .nano-content > .footer {
+  position: absolute;
+  left: calc(50% - 90px);
+  display: flex;
+}
 .nano > .nano-content:focus {
   outline: none;
 }

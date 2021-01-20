@@ -14,7 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="./js/210_mailRecieveList.js"></script>
-<title>Insert title here</title>
+<title>받은편지함</title>
 <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
 <meta name="apple-mobile-web-app-title" content="CodePen">
 <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
@@ -38,7 +38,7 @@
 	    <div class="search-box">
 	      <input placeholder="Search..."><span class="icon glyphicon glyphicon-search"></span>
 	    </div>
-	    <h1 class="page-title"><a class="sidebar-toggle-btn trigger-toggle-sidebar"><span class="line"></span><span class="line"></span><span class="line"></span><span class="line line-angle1"></span><span class="line line-angle2"></span></a>받은메일함</h1>
+	    <h1 class="page-title"><a class="sidebar-toggle-btn trigger-toggle-sidebar"><span class="line"></span><span class="line"></span><span class="line"></span><span class="line line-angle1"></span><span class="line line-angle2"></span></a>받은메일함(21 건)</h1>
 	  </header>
 	  <div class="action-bar">
 	  	<p class="mail-sender">보낸이</p>
@@ -228,7 +228,20 @@
 	            <div class="date">Mar. 6</div>
 	          </div>
 	        </li>
-	      </ul><a href="#" class="load-more-link">Show more messages</a>
+	      </ul>
+	      <div class="footer">
+	      	<a href="#" class="load-more-link"><%="<<" %>&nbsp;&nbsp;</a>
+	      	<a href="#" class="load-more-link"><%="<" %>&nbsp;&nbsp;</a>
+	      <%
+	      	for(int i=0;i<10;i++) {
+     	  %>
+     	  		<a href="#" class="load-more-link"><%=i+1 %>&nbsp;&nbsp;</a>
+     	  <%
+	      	}
+	      %>
+	      	<a href="#" class="load-more-link"><%=">" %>&nbsp;&nbsp;</a>
+	      	<a href="#" class="load-more-link"><%=">>" %>&nbsp;&nbsp;</a>
+	      </div>
 	    </div>
 	  </div>
 	</main>

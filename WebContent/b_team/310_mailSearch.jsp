@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="">
+    <title>받은편지함</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,600,700" rel="stylesheet" />
     <link href="css/310_mailSearch.css" rel="stylesheet" />
   </head>
@@ -57,7 +58,6 @@
             <div class="row third">
               <div class="input-field">
                 <div class="result-count">
-                  <span>999 </span>results</div>
                 <div class="group-btn">
                   <button class="btn-delete" id="delete">RESET</button>
                   <button class="btn-search">SEARCH</button>
