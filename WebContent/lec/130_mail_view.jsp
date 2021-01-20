@@ -19,10 +19,10 @@
 
 <title>반응형 웹메일</title>
 
-<link href="style_01.css" rel="stylesheet" media="" data-href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500" >
-<link href="style_02.css" rel="stylesheet" media="" data-href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
-<link href="style_03.css" rel="stylesheet" media="" data-href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-<link href="style_04.css" rel="stylesheet" > 
+<link href="./rsc/style_01.css" rel="stylesheet" media="" data-href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500" >
+<link href="./rsc/style_02.css" rel="stylesheet" media="" data-href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+<link href="./rsc/style_03.css" rel="stylesheet" media="" data-href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link href="./rsc/style_04.css" rel="stylesheet" > 
 
 <script>
   window.console = window.console || function(t) {};
@@ -38,7 +38,7 @@
 
 <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script id="rendered-js" src="js_01.js" ></script>
+<script id="rendered-js" src="./rsc/js_01.js" ></script>
 
 </head>
 
