@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<jsp:include page="../template/jsp_common.jsp" />
+<jsp:include page="./010_common.jsp" />
 
 <div class="header">
 	<h1 class="page-title">
