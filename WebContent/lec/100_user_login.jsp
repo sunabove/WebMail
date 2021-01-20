@@ -9,10 +9,10 @@
 
 <!doctype html>
 <!--[if lte IE 9]>
-<html lang="en" class="oldie">
+<html lang="ko" class="oldie">
 <![endif]-->
 <!--[if gt IE 9]><!-->
-<html lang="en">
+<html lang="ko">
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
@@ -49,6 +49,7 @@
 </script>
 </head>
 <body class="fullpage logged-in sidebar-false">
+
 	<header id="main-header" class="main-header"></header>
 	<div class="oldie-header">
 		<a href="https://codepen.io/nicklassandell/pen/cqlGk">Edit Pen</a>
@@ -229,5 +230,6 @@
 	<script src="https://cpwebassets.codepen.io/assets/packs/js/2-56b9048a92715122b7fc.chunk.js"></script>
 	<script src="https://cpwebassets.codepen.io/assets/packs/js/everypage-7713aff38c12e2be765c.js"></script>
 	<script src="https://cpwebassets.codepen.io/assets/editor/full/full_page_renderer-68d817ddab07bc9760b7fbc5f2d6796c23ed348c67db2aeb96ecee1dadf9e71d.js"></script>
+
 </body>
 </html>

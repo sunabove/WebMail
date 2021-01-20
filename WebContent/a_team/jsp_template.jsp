@@ -8,7 +8,7 @@
 <jsp:include page="../template/jsp_common.jsp" />
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
