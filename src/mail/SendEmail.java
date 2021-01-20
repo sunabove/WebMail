@@ -10,6 +10,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import web.SysProps;
+
 public class SendEmail {
 	
 	public static void main(String[] args) throws Exception {
@@ -20,8 +22,11 @@ public class SendEmail {
 
 		// Sender's email ID needs to be mentioned
 		String from = "terabuilder@gmail.com";
-		final String username = "terabuilder";// change accordingly
-		final String password = "dirdir01";// change accordingly
+		
+		SysProps sysProps = new SysProps();
+		
+		String username = sysProps.getProperty( "mail.id" );// change accordingly
+		String password = sysProps.getProperty( "mail.password" );// change accordingly
 
 		// Assuming you are sending email through relay.jangosmtp.net
 		String host = "smtp.gmail.com";

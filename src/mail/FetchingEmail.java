@@ -21,14 +21,20 @@ import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
 
+import web.SysProps;
+
 public class FetchingEmail {
 	
 	public static void main(String[] args) {
+		
+		SysProps sysProps = new SysProps();
+		
+		String username = sysProps.getProperty( "mail.id" );// change accordingly
+		String password = sysProps.getProperty( "mail.password" );// change accordingly
+
 		String host = "pop.gmail.com";// change accordingly
 		String mailStoreType = "pop3";
-		String username = "terabuilder@gmail.com";// change accordingly
-		String password = "";// change accordingly
-
+		
 		// Call method fetch
 		fetch(host, mailStoreType, username, password);
 	}

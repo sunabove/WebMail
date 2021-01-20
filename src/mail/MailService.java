@@ -11,6 +11,7 @@ import javax.mail.Store;
 import javax.mail.URLName;
 
 import lombok.extern.slf4j.Slf4j;
+import web.SysProps;
 
 @Slf4j
 
@@ -28,11 +29,36 @@ public class MailService {
 	private int port = 993 ; 
 	
 	private String file = "INBOX";
+	
+	public static void main(String[] args) throws Exception {
+		SysProps sysProps = new SysProps();
+		
+		String id = sysProps.getProperty( "mail.id" );// change accordingly
+		String pass = sysProps.getProperty( "mail.password" );// change accordingly
 
-	public MailService() {
+		MailService mailService = new MailService();
+		
+		mailService.login(id, pass);
+		int messageCount = mailService.getMessageCount();
+		
+		log.debug( "messageCount = " + messageCount );
 
+		// just for tutorial purpose
+		if (messageCount > 5) { 
+			messageCount = 5;
+		}
+		Message[] messages = mailService.getMessages();
+		for (int i = 0; i < messageCount; i++) {
+			String subject = "";
+			if (messages[i].getSubject() != null) {
+				subject = messages[i].getSubject();
+			}
+			
+			log.debug( "subject = " + subject );
+			Address[] fromAddress = messages[i].getFrom();
+		}
 	}
-
+	
 	public boolean isLoggedIn() {
 		return store.isConnected();
 	}
@@ -84,32 +110,6 @@ public class MailService {
 
 	public Message[] getMessages() throws MessagingException {
 		return folder.getMessages();
-	}
-
-	public static void main(String[] args) throws Exception {
-		MailService mailService = new MailService();
-		String id = "terabuilder@gmail.com";
-		String pass = "";
-		
-		mailService.login(id, pass);
-		int messageCount = mailService.getMessageCount();
-		
-		log.debug( "messageCount = " + messageCount );
-
-		// just for tutorial purpose
-		if (messageCount > 5) { 
-			messageCount = 5;
-		}
-		Message[] messages = mailService.getMessages();
-		for (int i = 0; i < messageCount; i++) {
-			String subject = "";
-			if (messages[i].getSubject() != null) {
-				subject = messages[i].getSubject();
-			}
-			
-			log.debug( "subject = " + subject );
-			Address[] fromAddress = messages[i].getFrom();
-		}
 	}
 
 }

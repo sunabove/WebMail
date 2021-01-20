@@ -8,14 +8,20 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
 
+import web.SysProps;
+
 public class CheckMail {
 
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		SysProps sysProps = new SysProps();
+
 		// Set mail properties and configure accordingly
 		String hostval = "pop.gmail.com";
 		String mailStrProt = "pop3";
-		String uname = "terabuilder@gmail.com";
-		String pwd = "";
+
+		String uname = sysProps.getProperty("mail.id");// change accordingly
+		String pwd = sysProps.getProperty("mail.password");// change accordingly
+
 		// Calling checkMail method to check received emails
 		checkMail(hostval, mailStrProt, uname, pwd);
 	}
