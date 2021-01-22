@@ -1,5 +1,6 @@
 package mail;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -68,14 +69,12 @@ public class CheckMailInsertDb {
 
 		Connection con = DriverManager.getConnection(url, "XCLICK_DEPLOY3", "admin");
 
-		String sql = "";
-		sql += "insert into T_MAIL( MAILID, TITLE, MAILSIZE, RCVDATE, RCVUSERID) values "
-				+ "( UUID(), ?, ?, ?, ? )";
-
-		PreparedStatement stmt = con.prepareStatement(sql);
+		PreparedStatement stmtTmail = null;
+		PreparedStatement stmtContent = null ;
 		
 		int idx = 0 ; 
 		for (Message message : messages ) {
+			String mailId = java.util.UUID.randomUUID().toString() ;; 
 			int msgNo = message.getMessageNumber();
 			
 			Object from = message.getFrom()[0];
@@ -91,6 +90,7 @@ public class CheckMailInsertDb {
 			
 			String subject = message.getSubject(); 
 			java.util.Date rcvDate = message.getReceivedDate();
+			
 			String contentType = message.getContentType();
 			String content = "" ;
 			
@@ -112,12 +112,31 @@ public class CheckMailInsertDb {
 					content += "" + mp.getBodyPart( i ); 
 				}
 			} else {
-				content = "" ;
+				Object o = message.getContent();
+				if (o instanceof String) {
+					System.out.println("This is a string");
+					System.out.println("---------------------------");
+					content = (String) o;
+				} else if (o instanceof InputStream) {
+					System.out.println("This is just an input stream");
+					System.out.println("---------------------------");
+					InputStream is = (InputStream) o;
+					content = "" ; 
+					int c;
+					while ((c = is.read()) != -1) {
+						content += c; 
+					}
+				} else {
+					System.out.println("This is an unknown type");
+					System.out.println("---------------------------");
+					content = "" + o;
+				}
 			}
 			
 			System.out.println("Printing individual messages");
 			System.out.println("No: " + (idx + 1 ));
 			System.out.println("Message No: " + msgNo );
+			System.out.println("Mail Id: " + mailId );
 			System.out.println("Email Subject: " + subject );
 			System.out.println("From: " + from );
 			System.out.println("To: " + to );
@@ -125,16 +144,51 @@ public class CheckMailInsertDb {
 			System.out.println("Content: " + content );
 			
 			if( true ) { 
+				// 받은 메일
+				if( stmtTmail == null ) {
+					String sql = "";
+					sql += "INSERT INTO T_MAIL( MAILID, TITLE, MAILSIZE, RCVDATE, RCVUSERID) values " ; 
+					sql += "( ?, ?, ?, ?, ? )";
+					stmtTmail = con.prepareStatement(sql);
+				}
+				
+				PreparedStatement stmt = stmtTmail ;
 				int i = 1 ; 
+				stmt.setString(i++, mailId);
 				stmt.setString(i++, subject);
 				stmt.setInt(i++, ("" + content).length() );
 				if( rcvDate == null ) {
 					stmt.setNull(i++, java.sql.Types.TIMESTAMP);
 				} else {
 					stmt.setDate(i++, new java.sql.Date( rcvDate.getTime() ) );
-				}
-				
+				}				
 				stmt.setString(i++, "" + from );				
+				
+				int upNo = stmt.executeUpdate();
+				System.out.println(upNo + " records inserted.");
+				System.out.println();
+			}
+			
+			if( true ) {
+				// 본문 내용 추가 // T_MAIL_SIMPLECONTENT
+				
+				if( stmtContent == null ) {
+					String sql = "";
+					sql += "INSERT INTO T_MAIL_SIMPLECONTENT ( ";
+					sql += " MAILID, SIMPLECONTENT, REGDATE, CHGDATE, REGUSERID, CHGUSERID " ; 
+					sql += " ) values ( ";
+					sql += " ?, ?, NOW(), NOW(), " ;
+					sql += " ( SELECT MIN(id) FROM user WHERE name = ? ) ," ;
+					sql += " ( SELECT MIN(id) FROM user WHERE name = ? ) ," ;
+					sql += " ) ";
+					stmtContent = con.prepareStatement(sql);
+				}
+				PreparedStatement stmt = stmtContent ;
+				int i = 1 ; 
+				stmt.setString(i++, mailId);
+				stmt.setString(i++, content );
+				stmt.setString(i++, rcvUserId );
+				stmt.setString(i++, rcvUserId );
 				
 				int upNo = stmt.executeUpdate();
 				System.out.println(upNo + " records inserted.");
