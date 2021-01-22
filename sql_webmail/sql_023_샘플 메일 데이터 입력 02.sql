@@ -1,61 +1,24 @@
 -- sample t_mail record insert
 
-DROP TABLE if EXISTS n ;
-​
-CREATE TABLE n AS (
-	WITH recursive num AS (
-	    SELECT 1 AS n
-	    UNION ALL
-	    SELECT n + 1 FROM num WHERE n < 1000000 
-	)
-	SELECT n AS no FROM num 
-) ;
-​
 SELECT * FROM n WHERE no < 10 ;
-​
--- random text function
-DROP FUNCTION if EXISTS MY_TEXT ;
-​
-DELIMITER //  
-CREATE FUNCTION MY_TEXT ( n INT )  
-RETURNS VARCHAR(200) 
-BEGIN  
-   DECLARE t_all VARCHAR(200) ;
-	DECLARE idx INT ; 
-	DECLARE c VARCHAR(1) ;
-	DECLARE alpha VARCHAR( 255 ) ;
-	
-	SET alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' ; 
-	
-	SET idx = 0 ; 
-   SET t_all = '' ; 
-   
-   WHILE idx < n DO  
-   	SET c = SUBSTRING( alpha, rand()*LENGTH(alpha)+1, 1) ; 
-   	SET t_all = CONCAT( t_all, c ) ;
-   	SET idx = idx + 1 ; 
-   END WHILE ;  
-   RETURN t_all ;  
-END; //  
-DELIMITER ; 
-​
-SELECT my_text( 8 ) FROM DUAL ;
--- // random text function
-​
--- sample user insert
+
+SELECT my_text( 8 ) FROM dual ;
+
 DELETE FROM user WHERE 1 = 1 ;
-​
-INSERT INTO USER (id, name, passwd) VALUES 
-( UUID(), 'admin', 'admin' ) ,
-( UUID(), 'john', 'admin' ) 
-;
-​
+SELECT * FROM user ;
+INSERT INTO USER (id, name, passwd)
+VALUES
+( UUID(), 'admin', 'admin' );
+
+INSERT INTO USER (id, name, passwd)
+VALUES
+( UUID(), 'john', 'admin' ) ;
+
 INSERT INTO user(id, name, passwd) 
-SELECT UUID(), MY_TEXT(8), MY_TEXT(8) FROM n WHERE no < 100 
-;
-​
-SELECT * FROM user ; 
-​
+SELECT UUID(), MY_TEXT(8), MY_TEXT(8) FROM n WHERE no < 100 ;
+
+SELECT * FROM user ;
+
 -- sample mail insert
 DROP TABLE IF EXISTS T_MAIL ;
 
@@ -93,22 +56,20 @@ LARGEYN	CHAR(1) DEFAULT 'N'	COMMENT '대용량메일여부',
 CONVERSIONYN	VARCHAR(10) DEFAULT 'N' COMMENT '컨버젼여부',
 SYSTEMMAILYN	CHAR(1) DEFAULT 'N' , 
 COMMENTCNT	INTEGER(5) DEFAULT 0	COMMENT '댓글개수'  
-) ; 
-​
+) ;
 SELECT COUNT(*) FROM t_mail ;
 DELETE FROM t_mail WHERE 1 = 1 ;
 SELECT * FROM t_mail ;
 
-INSERT INTO t_mail( mailid , title, mailsize, regUserId, rcvDate, regDate ) 
-SELECT mailid, title, LENGTH(title), userId, rcvDate, regDate
+INSERT INTO t_mail( mailid , title,      mailsize, regUserId, rcvDate, regDate ) 
+SELECT               mailid, title, LENGTH(title),    userId, rcvDate, regDate
 FROM ( 
 	SELECT no, UUID() AS mailid, MY_TEXT( 25 ) title, userid,
-	( NOW() - INTERVAL FLOOR(RAND() * 200) DAY ) AS rcvDate,
-	( NOW() - INTERVAL FLOOR(RAND() * 200) DAY ) AS regDate,
+	DATE_FORMAT( NOW() - INTERVAL FLOOR(RAND() * 20) DAY , '%Y-%m-%d %H:%i:%s' ) AS rcvDate,
+	DATE_FORMAT( NOW() - INTERVAL FLOOR(RAND() * 20) DAY , '%Y-%m-%d %H:%i:%s' ) AS regDate,
 	'' AS z
-	FROM n , 
-	( SELECT ROW_NUMBER() over(ORDER BY id) AS userNo, id as userId FROM user ) as user
+	FROM n , ( SELECT ROW_NUMBER() over(ORDER BY id) AS userNo, id as userId FROM user ) as user
 	WHERE NO < 10000 AND MOD( NO, 100 ) = userNo 
-) AS a ;
+) AS a ORDER BY NO  ;
 
 -- end file

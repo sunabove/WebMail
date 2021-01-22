@@ -1,25 +1,40 @@
 -- USER --
-DROP TABLE IF EXISTS USER ; 
+DROP TABLE if EXISTS t_mail CASCADE ;
+DROP TABLE if EXISTS t_mail_sendinfo CASCADE; 
+drop TABLE if exists t_mail_rcvlist_search CASCADE ;
+DROP TABLE if EXISTS t_mail_pop3uid CASCADE ; 
+DROP TABLE if EXISTS t_mail_boxlink CASCADE ; 
+DROP TABLE IF EXISTS t_mail_status CASCADE ;
+DROP TABLE if EXISTS t_mail_pop3smtp CASCADE ;
+DROP TABLE IF EXISTS t_mail_rcvinfo CASCADE ;
+DROP TABLE if EXISTS t_mail_simplecontent CASCADE ; 
+DROP TABLE IF EXISTS t_mail_mailbox CASCADE ;
+DROP TABLE IF EXISTS t_mail_rcvlist CASCADE ;
+DROP TABLE if EXISTS t_mail_usesize CASCADE ;
 
-CREATE TABLE USER (
+DROP VIEW  if EXISTS user ;
+DROP TABLE if EXISTS user CASCADE ; 
+DROP TABLE if EXISTS t_USER CASCADE ; 
+
+CREATE TABLE T_USER (
 	id VARCHAR(40) PRIMARY KEY,
 	name VARCHAR(200) NOT NULL, 
 	passwd VARCHAR(200),
 	phone_no VARCHAR(200),
 	
-	UNIQUE KEY idx_user_name ( name )
+	UNIQUE KEY idx_user_name ( NAME )
 );
 
-INSERT INTO USER (id, name, passwd) VALUES 
+CREATE VIEW USER AS SELECT * FROM t_user ;
+
+INSERT INTO T_USER (id, name, passwd) VALUES 
 ( UUID(), 'admin', 'admin' ) ;
 
-INSERT INTO USER (id, name, passwd) VALUES 
+INSERT INTO T_USER (id, name, passwd) VALUES 
 ( UUID(), 'john', 'admin' ) ;
 
 -- SYSTEM FILES --
-
 -- 1 T_MAIL --
-DROP TABLE IF EXISTS T_MAIL ;
 
 CREATE TABLE T_MAIL ( 
 MAILID	VARCHAR(40)	PRIMARY KEY NOT NULL COMMENT '메일아이디', 
@@ -55,10 +70,8 @@ LARGEYN	CHAR(1) DEFAULT 'N'	COMMENT '대용량메일여부',
 CONVERSIONYN	VARCHAR(10) DEFAULT 'N' COMMENT '컨버젼여부',
 SYSTEMMAILYN	CHAR(1) DEFAULT 'N' , 
 COMMENTCNT	INTEGER(5) DEFAULT 0	COMMENT '댓글개수' 
-, FOREIGN KEY (REGUSERID) REFERENCES user( id )
+, FOREIGN KEY (REGUSERID) REFERENCES t_user( id )
 ) ; 
-
-DROP TABLE if EXISTS t_mail_sendinfo; 
 
 create table t_mail_sendinfo (
 	sendinfoid varchar(40) not null primary key comment '발송정보아이디',
@@ -71,33 +84,30 @@ create table t_mail_sendinfo (
 	bookyn char(1) default 'N' comment '예약여부',
 	bookfileid varchar(40) comment '예약파일아이디',
 	timezone varchar(20) comment '타임존',
-	timezonedate date comment '타임존일시',
-	bookdate date comment '예약일시',
+	timezonedate DATETIME comment '타임존일시',
+	bookdate DATETIME comment '예약일시',
 	bookstatus varchar(20) comment '예약상태',
 	device varchar(20) default 'PC' comment '장치',
 	reguserid varchar(40) comment '등록자아이디',
-	regdate date comment '등록일시',
-	chguserid varchar(40) comment '변경자아이디',
-	chgdate date comment '변경일시'
+	regdate DATETIME comment '등록일시',
+	chguserid VARCHAR(40) COMMENT '변경자아이디',
+	chgdate DATETIME comment '변경일시'
 ) ;
 
 -- 오종택 --
 -- T_MAIL_RCVLIST_SEARCH
-drop table if exists T_MAIL_RCVLIST_SEARCH ;
 
 CREATE TABLE T_MAIL_RCVLIST_SEARCH(
 	MAILID VARCHAR(40) PRIMARY KEY COMMENT '메일아이디',
 	SEARCHCONTENT LONGTEXT COMMENT '받는사람 검색정보',
 	DEVICE VARCHAR(20) DEFAULT 'PC' COMMENT '장치',
 	REGUSERID VARCHAR(40) COMMENT '등록자아이디',
-	REGDATE DATE COMMENT '등록일시',
+	REGDATE DATETIME COMMENT '등록일시',
 	CHGUSERID VARCHAR(40) COMMENT '변경자아이디',
-	CHGDATE DATE COMMENT '변경일시'
+	CHGDATE DATETIME COMMENT '변경일시'
 ) ;
 
 -- t_mail_simplecontent , 정문종
-
-DROP TABLE if EXISTS t_mail_simplecontent ; 
 
 create table t_mail_simplecontent (
 	mailid varchar(40) primary key not null comment '메일아이디',
@@ -105,31 +115,27 @@ create table t_mail_simplecontent (
 	searchcontent longtext comment '검색내용',
 	device varchar(20) default 'PC' comment '장치',
 	reguserid varchar(40) comment '등록자아이디',
-	regdate date comment '등록일시',
+	regdate DATETIME comment '등록일시',
 	chguserid varchar(40) comment '변경자아이디',
-	chgdate date comment '변경일시'	
+	chgdate DATETIME comment '변경일시'	
 );
 
 -- t_mail_pop3uid 김윤민
 
-DROP TABLE if EXISTS t_mail_pop3uid ; 
-
 create table t_mail_pop3uid(
- mailid varchar(40) primary key not null comment'메일아이디',
- userid varchar(40) comment'사용자아이디',
- email varchar(200) comment'이메일' ,
- emailuid varchar(100) not null comment'이메일UID',
- delyn char(1) default 'N' comment'삭제여부',
- device varchar(20) default 'PC' comment'장치',
- reguserid varchar(40) comment'등록자아이디',
- regdate date comment'등록일시',
- chguserid varchar(40) comment'변경자아이디',
- chgdate date comment'변경일시'
+	 mailid varchar(40) primary key not null comment'메일아이디',
+	 userid varchar(40) comment'사용자아이디',
+	 email varchar(200) comment'이메일' ,
+	 emailuid varchar(100) not null comment'이메일UID',
+	 delyn char(1) default 'N' comment'삭제여부',
+	 device varchar(20) default 'PC' comment'장치',
+	 reguserid varchar(40) comment'등록자아이디',
+	 regdate DATETIME comment'등록일시',
+	 chguserid varchar(40) comment'변경자아이디',
+	 chgdate DATETIME comment'변경일시'
 );
 
 -- T_MAIL_BOXLINK 김경현
-
-DROP TABLE if EXISTS T_MAIL_BOXLINK ; 
 
 CREATE TABLE T_MAIL_BOXLINK (
 	userid VARCHAR(40) NOT NULL COMMENT'사용자아이디',
@@ -143,79 +149,75 @@ CREATE TABLE T_MAIL_BOXLINK (
 	OVERCAPYN char(1)  default 'N' COMMENT'용량초과로 보이지 않음여부디',
 	DEVICE VARCHAR(20) default 'PC'  COMMENT'장치',
 	REGUSERID VARCHAR(40) COMMENT'등록자아이디',
-	REGDATE DATE COMMENT'등록일시',
+	REGDATE DATETIME COMMENT'등록일시',
 	CHGUSERID VARCHAR(40) COMMENT'변경자아이디',
-	CHGDATE DATE COMMENT'변경일시',
-	RCVDATE DATE COMMENT'수신일',
+	CHGDATE DATETIME COMMENT'변경일시',
+	RCVDATE DATETIME COMMENT'수신일',
 	PRIMARY KEY (userid, MAILBOXID, MAILID)
 );
 
 -- T_MAIL_STATUS 한상덕
 
-DROP TABLE IF EXISTS T_MAIL_STATUS ;
-
-CREATE TABLE T_MAIL_STATUS (
-  MAILID            VARCHAR(40)     NOT NULL comment'메일아이디',
-  USERID            VARCHAR(40)     NOT NULL comment'사용자아이디',
-  READYN            CHAR(1)         DEFAULT 'N'              NULL comment'열람여부',
-  IMPTYN            CHAR(1)         DEFAULT 'N'              NULL comment'중요메일여부',
-  REPLYYN           CHAR(1)         DEFAULT 'N'              NULL comment'답변여부',
-  DELIVERYYN        CHAR(1)         DEFAULT 'N'              NULL comment'전달여부',
-  SHAREYN           CHAR(1)         DEFAULT 'N'              NULL comment'공유여부',
-  DEVICE            VARCHAR(20)    DEFAULT 'PC'         NULL comment'장치',
-  SHAREBOXLINKID    VARCHAR(80)         NULL comment'공유함링크정보',
-  REGUSERID         VARCHAR(40)         NULL comment'등록자아이디',
-  REGDATE           DATE                      NULL comment'등록일시',
-  CHGUSERID         VARCHAR(40)         NULL comment'변경자아이디',
-  CHGDATE           DATE                      NULL comment'변경일시'
-  , PRIMARY KEY( mailid , userid )
+CREATE TABLE t_mail_status (
+	MAILID            VARCHAR(40)     NOT NULL comment'메일아이디',
+	USERID            VARCHAR(40)     NOT NULL comment'사용자아이디',
+	READYN            CHAR(1)         DEFAULT 'N'              NULL comment'열람여부',
+	IMPTYN            CHAR(1)         DEFAULT 'N'              NULL comment'중요메일여부',
+	REPLYYN           CHAR(1)         DEFAULT 'N'              NULL comment'답변여부',
+	DELIVERYYN        CHAR(1)         DEFAULT 'N'              NULL comment'전달여부',
+	SHAREYN           CHAR(1)         DEFAULT 'N'              NULL comment'공유여부',
+	DEVICE            VARCHAR(20)    DEFAULT 'PC'         NULL comment'장치',
+	SHAREBOXLINKID    VARCHAR(80)         NULL comment'공유함링크정보',
+	REGUSERID         VARCHAR(40)         NULL comment'등록자아이디',
+	REGDATE           DATETIME                      NULL comment'등록일시',
+	CHGUSERID         VARCHAR(40)         NULL comment'변경자아이디',
+	CHGDATE           DATETIME                      NULL comment'변경일시'
+	, PRIMARY KEY( mailid , userid )
 ) ; 
 
 -- 김현준T_MAIL_POP3SMTP
-DROP TABLE if EXISTS T_MAIL_POP3SMTP ;
 
 create table T_MAIL_POP3SMTP (
-USERID varchar(40) not null comment '사용자아이디',
-EMAIL varchar(200) not null comment '이메일',
-SENDERNAME varchar(100) not null comment '보내는사람이름',
-POP3IMAPTYPE varchar(10) not null comment 'POP3 or IMAP',
-POP3ID varchar(60) not null comment 'POP3아이디',
-POP3PASSWD varchar(100) not null comment 'POP3패스워드',
-POP3SERVER varchar(60) not null comment 'POP3서버',
-POP3PORT integer(4) not null default 0 comment 'POP3포트',
-POP3SSLYN char(1) not null default 'N' comment 'POP3SSL여부',
-POP3SAMEUSEYN char(18) not null default 'Y' comment 'POP3동일사용여부',
-SMTPID varchar(2) comment 'SMTP아이디',
-SMTPPASSWD varchar(100) comment 'SMTP패스워드',
-SMTPSERVER varchar(60) comment 'SMTP서버',
-SMTPSCRTYYN char(1) not null default 'Y' comment 'SMTP보안인증여부',
-SMTPPORT integer(4) default 0 comment 'SMTP포트',
-SMTPCNNCTTYPE varchar(20) default 'SSL' comment 'SMTP연결유형',
-MAILBOXID varchar(40) not null comment '메일박스아이디',
-ORGMAILSAVEYN char(1) not null default 'N' comment '원본보관여부',
-DELSYNCYN char(1) not null default 'N' comment '디폴트메일여부',
-COMPANYMAILYN char(1) not null default 'N' comment '회사메일여부',
-LASTACCESSTIME date comment '마지막접속일시',
-LASTFAILTIME date comment '마지막실패일시',
-RCVCNT integer(10) not null default 0 comment '수신건수',
-DELCNT integer(10) not null default 0 comment '삭제건수',
-FAILCNT integer(10) not null default 0 comment '실패건수',
-ACCESSCNT integer(10) not null default 0 comment '접속건수',
-TODAYRCVCNT integer(10) not null default 0 comment '오늘수신건수',
-TODAYDELCNT integer(10) not null default 0 comment '오늘삭제건수',
-TODAYFAILCNT integer(10) not null default 0 comment '오늘실패건수',
-TODAYACCESSCNT integer(10) not null default 0 comment '오늘접속건수',
-COMPANYID varchar(40) comment '회사아이디',
-DEVICE varchar(20) default 'PC' comment '장치',
-REGUSERID varchar(40) comment '등록자아이디',
-REGDATE date comment '등록일시',
-CHGUSERID varchar(40) comment '변경자아이디',
-CHGDATE date comment '변경일시',
-primary key (USERID, EMAIL)
+	USERID varchar(40) not null comment '사용자아이디',
+	EMAIL varchar(200) not null comment '이메일',
+	SENDERNAME varchar(100) not null comment '보내는사람이름',
+	POP3IMAPTYPE varchar(10) not null comment 'POP3 or IMAP',
+	POP3ID varchar(60) not null comment 'POP3아이디',
+	POP3PASSWD varchar(100) not null comment 'POP3패스워드',
+	POP3SERVER varchar(60) not null comment 'POP3서버',
+	POP3PORT integer(4) not null default 0 comment 'POP3포트',
+	POP3SSLYN char(1) not null default 'N' comment 'POP3SSL여부',
+	POP3SAMEUSEYN char(18) not null default 'Y' comment 'POP3동일사용여부',
+	SMTPID varchar(2) comment 'SMTP아이디',
+	SMTPPASSWD varchar(100) comment 'SMTP패스워드',
+	SMTPSERVER varchar(60) comment 'SMTP서버',
+	SMTPSCRTYYN char(1) not null default 'Y' comment 'SMTP보안인증여부',
+	SMTPPORT integer(4) default 0 comment 'SMTP포트',
+	SMTPCNNCTTYPE varchar(20) default 'SSL' comment 'SMTP연결유형',
+	MAILBOXID varchar(40) not null comment '메일박스아이디',
+	ORGMAILSAVEYN char(1) not null default 'N' comment '원본보관여부',
+	DELSYNCYN char(1) not null default 'N' comment '디폴트메일여부',
+	COMPANYMAILYN char(1) not null default 'N' comment '회사메일여부',
+	LASTACCESSTIME DATETIME comment '마지막접속일시',
+	LASTFAILTIME DATETIME comment '마지막실패일시',
+	RCVCNT integer(10) not null default 0 comment '수신건수',
+	DELCNT integer(10) not null default 0 comment '삭제건수',
+	FAILCNT integer(10) not null default 0 comment '실패건수',
+	ACCESSCNT integer(10) not null default 0 comment '접속건수',
+	TODAYRCVCNT integer(10) not null default 0 comment '오늘수신건수',
+	TODAYDELCNT integer(10) not null default 0 comment '오늘삭제건수',
+	TODAYFAILCNT integer(10) not null default 0 comment '오늘실패건수',
+	TODAYACCESSCNT integer(10) not null default 0 comment '오늘접속건수',
+	COMPANYID varchar(40) comment '회사아이디',
+	DEVICE varchar(20) default 'PC' comment '장치',
+	REGUSERID varchar(40) comment '등록자아이디',
+	REGDATE DATETIME comment '등록일시',
+	CHGUSERID varchar(40) comment '변경자아이디',
+	CHGDATE DATETIME comment '변경일시',
+	primary key (USERID, EMAIL)
 );
 
 -- 박승균 t_mail_rcvinfo
-DROP TABLE IF EXISTS t_mail_rcvinfo;
 
 create table t_mail_rcvinfo (
 	rcvinfoid varchar(40) primary key not null comment '수신목록아이디',
@@ -226,13 +228,12 @@ create table t_mail_rcvinfo (
 	rcvname varchar(200) COMMENT '수신자명',
 	device varchar(20) DEFAULT 'PC' COMMENT '장치',
 	reguserid varchar(40) COMMENT '등록자아이디',
-	regdate date COMMENT '등록일시',
+	regdate DATETIME COMMENT '등록일시',
 	chguserid varchar(40) COMMENT '변경자아이디',
-	chgdate date COMMENT '변경일시'
+	chgdate DATETIME COMMENT '변경일시'
 );
 
 -- 김연진 t_mail_mailbox
-DROP TABLE IF EXISTS t_mail_mailbox ;
 
 CREATE TABLE t_mail_mailbox (
   USERID       VARCHAR(40) 	 NOT NULL COMMENT '사용자아이디',
@@ -248,9 +249,9 @@ CREATE TABLE t_mail_mailbox (
   UPDYN        CHAR(1)         DEFAULT 'Y'     NULL COMMENT '수정가능여부',
   DEVICE       VARCHAR(20)     DEFAULT 'PC'    NULL COMMENT '장치',
   REGUSERID    VARCHAR(40)     NULL COMMENT '등록자아이디',
-  REGDATE      DATE            NULL COMMENT '등록일시',
+  REGDATE      DATETIME            NULL COMMENT '등록일시',
   CHGUSERID    VARCHAR(40)     NULL COMMENT '수정자아이디',
-  CHGDATE      DATE            NULL COMMENT '수정일지',
+  CHGDATE      DATETIME            NULL COMMENT '수정일지',
   IMAPBOXID    INTEGER         DEFAULT 0 NULL,
   IMAPBOXNAME  VARCHAR(500)    NULL ,
   NOINFERIORS    CHAR(1)       DEFAULT 'N'     NULL ,
@@ -264,28 +265,25 @@ CREATE TABLE t_mail_mailbox (
 
 
 -- T_MAIL_RCVLIST 석건원
-DROP TABLE IF EXISTS T_MAIL_RCVLIST ;
 
 CREATE TABLE T_MAIL_RCVLIST (
-  RCVLISTID VARCHAR(40) PRIMARY KEY   NOT NULL COMMENT '수신목록아이디',
-  MAILID VARCHAR(40) NOT NULL COMMENT '메일아이디',
-  RCVTYPE VARCHAR(20) NOT NULL COMMENT '수신타입(수신,참조,숨은참조)',
-  RCVIDTYPE VARCHAR(20) NOT NULL COMMENT '수신자아이디타입(EMAIL/USERID)',
-  RCVUSERID VARCHAR(200) NOT NULL COMMENT '수신자아이디',
-  RCVINFO VARCHAR(300) NOT NULL COMMENT '수신자정보부',
-  OVERCAPYN CHAR(1) DEFAULT 'N' NOT NULL COMMENT '용량초과여부',
-  READDATE DATE COMMENT '열람일시',
-  DEVICE VARCHAR(20) DEFAULT 'PC'COMMENT '장치',
-  REGUSERID VARCHAR(40) COMMENT '등록자아이디',
-  REGDATE DATE COMMENT '등록일시',
-  CHGUSERID VARCHAR(40) COMMENT '변경자아이디',
-  CHGDATE DATE COMMENT '변경일시',
-  SENDFAILYN CHAR(1)
+	RCVLISTID VARCHAR(40) PRIMARY KEY   NOT NULL COMMENT '수신목록아이디',
+	MAILID VARCHAR(40) NOT NULL COMMENT '메일아이디',
+	RCVTYPE VARCHAR(20) NOT NULL COMMENT '수신타입(수신,참조,숨은참조)',
+	RCVIDTYPE VARCHAR(20) NOT NULL COMMENT '수신자아이디타입(EMAIL/USERID)',
+	RCVUSERID VARCHAR(200) NOT NULL COMMENT '수신자아이디',
+	RCVINFO VARCHAR(300) NOT NULL COMMENT '수신자정보부',
+	OVERCAPYN CHAR(1) DEFAULT 'N' NOT NULL COMMENT '용량초과여부',
+	READDATE DATETIME COMMENT '열람일시',
+	DEVICE VARCHAR(20) DEFAULT 'PC'COMMENT '장치',
+	REGUSERID VARCHAR(40) COMMENT '등록자아이디',
+	REGDATE DATETIME COMMENT '등록일시',
+	CHGUSERID VARCHAR(40) COMMENT '변경자아이디',
+	CHGDATE DATETIME COMMENT '변경일시',
+	SENDFAILYN CHAR(1)
 );
 
 -- 성병문 T_MAIL_USESIZE
-
-DROP TABLE if EXISTS T_MAIL_USESIZE;
 
 CREATE TABLE T_MAIL_USESIZE ( 
 	USERID	VARCHAR(40)	PRIMARY key	NOT NULL	COMMENT'사용자아이디', 
