@@ -5,18 +5,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<jsp:include page="./010_common.jsp" />
+<jsp:include page="./010_common.jsp" /> 
 
-<html lang="ko" class=" -webkit-">
+<c:if test="${ empty sessionScope.userid }">
+	<c:if test="${ not fn:contains( pageContext.request.servletPath, 'login.jsp' ) }">
+		<c:redirect url="100_user_login.jsp">
+		</c:redirect>
+	</c:if>
+</c:if>
+
+<html lang="ko" >
 <head>
+<title>메일 목록 ${a} ${pageContext.request.servletPath} ${ sessionScope.userid }</title>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 
 <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
 <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
 <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
-
-<title>반응형 웹메일</title>
 
 <link href="./rsc/style_01.css" rel="stylesheet" media="" data-href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500" >
 <link href="./rsc/style_02.css" rel="stylesheet" media="" data-href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
