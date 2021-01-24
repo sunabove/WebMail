@@ -44,4 +44,6 @@ FROM (
 ) AS a 
 ORDER BY NO ;
 
+SELECT * FROM t_user ;
+SELECT * FROM t_mail ;
 -- end file
