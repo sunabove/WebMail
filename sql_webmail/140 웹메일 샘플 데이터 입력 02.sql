@@ -4,17 +4,15 @@ SELECT * FROM n WHERE no < 10 ;
 
 SELECT my_text( 8 ) FROM dual ;
 
-DELETE FROM t_mail WHERE 1 = 1 ; 
-DELETE FROM user WHERE 1 = 1 ;
+DELETE FROM t_mail WHERE 1 = 1 ;  
 
 SELECT * FROM user ;
-INSERT INTO t_user (userid, name, passwd)
-VALUES
+
+INSERT INTO t_user (userid, name, passwd) VALUES
 ( UUID(), 'admin', 'admin' );
 
-INSERT INTO t_user (userid, name, passwd)
-VALUES
-( UUID(), 'john', 'admin' ) ;
+INSERT INTO t_user (userid, name, passwd) VALUES
+( UUID(), 'john', 'admin' )  ;
 
 INSERT INTO t_user(userid, name, passwd) 
 SELECT UUID(), MY_TEXT(8), MY_TEXT(8) FROM n WHERE no < 100 ;
@@ -45,5 +43,13 @@ FROM (
 ORDER BY NO ;
 
 SELECT * FROM t_user ;
+SELECT mailId , title, mailsize, rcvUserId, rcvDate, REGUSERID, REGDATE, CHGUSERID, CHGDATE FROM t_mail ;
+
+UPDATE t_mail SET title = 'abcdef' WHERE mailid = (SELECT mailid FROM t_mail LIMIT 1 )  ;
+
 SELECT * FROM t_mail ;
+
+SELECT * FROM t_mail_usesize tmu ;
+
+SELECT * FROM t_mail_mailbox ;
 -- end file

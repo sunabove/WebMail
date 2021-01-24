@@ -1,6 +1,9 @@
 ﻿-- drop table all --
+
+DROP TABLE if EXISTS t_mail_usesize        CASCADE ;
+
 DROP TABLE if EXISTS t_mail_sendinfo       CASCADE ; 
-drop TABLE if exists t_mail_rcvlist_search CASCADE ;
+DROP TABLE if exists t_mail_rcvlist_search CASCADE ;
 DROP TABLE if EXISTS t_mail_pop3uid        CASCADE ; 
 DROP TABLE if EXISTS t_mail_boxlink        CASCADE ; 
 DROP TABLE IF EXISTS t_mail_status         CASCADE ;
@@ -9,7 +12,6 @@ DROP TABLE IF EXISTS t_mail_rcvinfo        CASCADE ;
 DROP TABLE if EXISTS t_mail_simplecontent  CASCADE ; 
 DROP TABLE IF EXISTS t_mail_mailbox        CASCADE ;
 DROP TABLE IF EXISTS t_mail_rcvlist        CASCADE ;
-DROP TABLE if EXISTS t_mail_usesize        CASCADE ;
 DROP TABLE if EXISTS t_mail                CASCADE ;
 
 
@@ -24,17 +26,16 @@ CREATE TABLE T_USER (
  name      VARCHAR(200) NOT NULL , 
  passwd    VARCHAR(200) ,
  phone_no  VARCHAR(200) ,
+
+ REGUSERID  VARCHAR(40)               COMMENT '등록자아이디',
+ REGDATE    DATETIME                  COMMENT '등록일시', 
+ CHGUSERID  VARCHAR(40)               COMMENT '변경자아이디',
+ CHGDATE    DATETIME                  COMMENT '변경일시' ,
  
  UNIQUE KEY idx_user_name ( NAME )
 );
 
 CREATE VIEW USER AS SELECT userid AS id, NAME, passwd, phone_no FROM t_user ;
-
-INSERT INTO T_USER (userid, name, passwd) VALUES 
-( UUID(), 'admin', 'admin' ) ;
-
-INSERT INTO T_USER (userid, name, passwd) VALUES 
-( UUID(), 'john', 'admin' ) ;
 
 -- // SYSTEM FILES --
 

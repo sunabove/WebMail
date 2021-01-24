@@ -1,10 +1,10 @@
 ﻿-- 웹 메일 제약 조건
 -- DROP TABLE IF EXISTS student ; 
--- ALTER TABLE t_mail DROP CONSTRAINT t_mail_fk ;
+-- ALTER TABLE t_mail DROP CONSTRAINT t_mail_fk_01_userid ;
 
 -- 1 mail
 ALTER TABLE t_mail ADD CONSTRAINT t_mail_fk_01_userid
-FOREIGN KEY (REGUSERID) REFERENCES t_user( userid ) ; 
+FOREIGN KEY (rcvUserId) REFERENCES t_user( userid ) ; 
 
 -- 2 simple content / 메일 본문 내용
 ALTER TABLE t_mail_simplecontent ADD CONSTRAINT t_mail_simcon_fk_01_mailid
