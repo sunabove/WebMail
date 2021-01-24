@@ -17,7 +17,7 @@ DROP TABLE if EXISTS user CASCADE ;
 DROP TABLE if EXISTS t_USER CASCADE ; 
 
 CREATE TABLE T_USER (
- id        VARCHAR(40)  PRIMARY KEY,
+ userid    VARCHAR(40)  PRIMARY KEY,
  name      VARCHAR(200) NOT NULL , 
  passwd    VARCHAR(200) ,
  phone_no  VARCHAR(200) ,
@@ -25,12 +25,12 @@ CREATE TABLE T_USER (
  UNIQUE KEY idx_user_name ( NAME )
 );
 
-CREATE VIEW USER AS SELECT * FROM t_user ;
+CREATE VIEW USER AS SELECT userid AS id, NAME, passwd, phone_no FROM t_user ;
 
-INSERT INTO T_USER (id, name, passwd) VALUES 
+INSERT INTO T_USER (userid, name, passwd) VALUES 
 ( UUID(), 'admin', 'admin' ) ;
 
-INSERT INTO T_USER (id, name, passwd) VALUES 
+INSERT INTO T_USER (userid, name, passwd) VALUES 
 ( UUID(), 'john', 'admin' ) ;
 
 -- SYSTEM FILES --
@@ -73,7 +73,7 @@ CREATE TABLE T_MAIL (
 	CHGUSERID       VARCHAR(40) COMMENT '변경자아이디',
 	CHGDATE         DATETIME COMMENT '변경일시' 
 	
-	, FOREIGN KEY (REGUSERID) REFERENCES t_user( id )
+	, FOREIGN KEY (REGUSERID) REFERENCES t_user( userid )
 ) COMMENT 'MAIL Master 정보' ; 
 
 -- T_MAIL_BOXLINK 김경현 
@@ -115,8 +115,8 @@ CREATE TABLE t_mail_mailbox (
   USECAP       INTEGER(11)     DEFAULT 0    COMMENT '사용용량',
   UPDYN        CHAR(1)         DEFAULT 'Y'  COMMENT '수정가능여부',
   
-  IMAPBOXID    INTEGER         DEFAULT 0 ,
-  IMAPBOXNAME  VARCHAR(500) ,
+  IMAPBOXID      INTEGER       DEFAULT 0 ,
+  IMAPBOXNAME    VARCHAR(500) ,
   NOINFERIORS    CHAR(1)       DEFAULT 'N' ,
   NOSELECT       CHAR(1)       DEFAULT 'N' ,
   READONLY       CHAR(1)       DEFAULT 'N' ,

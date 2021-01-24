@@ -1,19 +1,19 @@
 -- sample t_mail record insert
 
-DROP TABLE if EXISTS n 
-;
-​
-CREATE TABLE n AS (
+DROP TABLE if EXISTS n CASCADE ;
+
+CREATE TABLE n( no int PRIMARY KEY AUTO_INCREMENT ) ;
+
+INSERT INTO n(NO)  
 WITH recursive num AS (
-    SELECT 1 AS n
+    SELECT 1 AS no
     UNION ALL
-    SELECT n + 1 FROM num WHERE n < 1000000 
+    SELECT no + 1 FROM num WHERE no < 1000000 
 )
-SELECT n AS no FROM num 
-)
+SELECT * FROM num ORDER BY NO 
 ;
-​
-SELECT * FROM n WHERE no < 10 ;
+
+SELECT * FROM n WHERE no < 100 ;
 ​
 -- random text function
 DROP FUNCTION if EXISTS MYTEXT ;
