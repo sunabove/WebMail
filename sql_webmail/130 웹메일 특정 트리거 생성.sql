@@ -15,11 +15,17 @@ BEGIN
   SELECT NEW.userid, 0 AS totcnt, 0 AS readcnt
   FROM dual ;
 
-  -- 개인 메일함 추가
+  -- 개인 받는 메일함 추가
   INSERT INTO t_mail_mailbox
          ( userid, mailboxid , mailboxname , sortno )
   SELECT NEW.userid, UUID(), 'InBox', 0 
   FROM dual ; 
+
+  -- 개인 보내는 메일함 추가
+  INSERT INTO t_mail_mailbox
+         ( userid, mailboxid , mailboxname , sortno )
+  SELECT NEW.userid, UUID(), 'SendBox', 1 
+  FROM dual ;
   
 END ;
 
@@ -58,6 +64,8 @@ BEGIN
   INSERT INTO t_mail_status
           (mailid, userid, readyn )
   VALUES ( NEW.mailid, NEW.senduserid, 'Y' );
+
+  -- 보낸 메일함 상태 변경 
   
 END ;
 
