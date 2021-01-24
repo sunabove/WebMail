@@ -16,6 +16,8 @@ DROP VIEW  if EXISTS user ;
 DROP TABLE if EXISTS user CASCADE ; 
 DROP TABLE if EXISTS t_USER CASCADE ; 
 
+-- SYSTEM FILES 
+
 CREATE TABLE T_USER (
  userid    VARCHAR(40)  PRIMARY KEY,
  name      VARCHAR(200) NOT NULL , 
@@ -33,7 +35,8 @@ INSERT INTO T_USER (userid, name, passwd) VALUES
 INSERT INTO T_USER (userid, name, passwd) VALUES 
 ( UUID(), 'john', 'admin' ) ;
 
--- SYSTEM FILES --
+-- // SYSTEM FILES --
+
 -- 1 T_MAIL --
 
 CREATE TABLE T_MAIL ( 
@@ -72,35 +75,9 @@ CREATE TABLE T_MAIL (
 	REGDATE         DATETIME COMMENT '등록일시', 
 	CHGUSERID       VARCHAR(40) COMMENT '변경자아이디',
 	CHGDATE         DATETIME COMMENT '변경일시' 
-	
-	, FOREIGN KEY (REGUSERID) REFERENCES t_user( userid )
 ) COMMENT 'MAIL Master 정보' ; 
 
--- T_MAIL_BOXLINK 김경현 
-
-CREATE TABLE T_MAIL_BOXLINK (
- userid          VARCHAR(40) NOT NULL      COMMENT '사용자아이디',
- MAILBOXID       VARCHAR(40) NOT NULL      COMMENT '메일함아이디',
- MAILID          VARCHAR(40) NOT NULL      COMMENT '메일아이디',
- INOUTTYPE       VARCHAR(20)               COMMENT '수발신타입',
- EMLHEADERID     VARCHAR(40)               COMMENT '수발신타입',
- BOXLINKID       VARCHAR(80)               COMMENT '아이디',
- RCVSHARELINKYN  CHAR (1)    DEFAULT  'N'  COMMENT '공유되었는지 여부',
- ORGMAILBOXID    VARCHAR(40)               COMMENT '휴지통이동 등 시에 이전 함정보를 가지고 있음',
- OVERCAPYN       CHAR (1)    DEFAULT  'N'  COMMENT '용량초과로 보이지 않음여부디',
- 
- RCVDATE         DATETIME                  COMMENT'수신일',
- 
- DEVICE          VARCHAR(20) DEFAULT  'PC' COMMENT '장치',
- REGUSERID       VARCHAR(40)               COMMENT '등록자아이디',
- REGDATE         DATETIME                  COMMENT '등록일시',
- CHGUSERID       VARCHAR(40)               COMMENT'변경자아이디',
- CHGDATE         DATETIME                  COMMENT'변경일시',
- 
- PRIMARY KEY (userid, MAILBOXID, MAILID)
-) COMMENT 'MAIL 개인메일 함별 링크 정보' ;
-
--- 김연진 t_mail_mailbox
+-- t_mail_mailbox 김연진
 
 CREATE TABLE t_mail_mailbox (
   USERID       VARCHAR(40)     NOT NULL     COMMENT '사용자아이디',
@@ -133,46 +110,70 @@ CREATE TABLE t_mail_mailbox (
   PRIMARY KEY (USERID, MAILBOXID)
 ) COMMENT 'MAIL 개인메일함' ;
 
--- 김현준T_MAIL_POP3SMTP
+-- T_MAIL_BOXLINK 김경현 
+
+CREATE TABLE T_MAIL_BOXLINK (
+ userid          VARCHAR(40) NOT NULL      COMMENT '사용자아이디',
+ MAILBOXID       VARCHAR(40) NOT NULL      COMMENT '메일함아이디',
+ MAILID          VARCHAR(40) NOT NULL      COMMENT '메일아이디',
+ INOUTTYPE       VARCHAR(20)               COMMENT '수발신타입',
+ EMLHEADERID     VARCHAR(40)               COMMENT '수발신타입',
+ BOXLINKID       VARCHAR(80)               COMMENT '아이디',
+ RCVSHARELINKYN  CHAR (1)    DEFAULT  'N'  COMMENT '공유되었는지 여부',
+ ORGMAILBOXID    VARCHAR(40)               COMMENT '휴지통이동 등 시에 이전 함정보를 가지고 있음',
+ OVERCAPYN       CHAR (1)    DEFAULT  'N'  COMMENT '용량초과로 보이지 않음여부디',
+ 
+ RCVDATE         DATETIME                  COMMENT'수신일',
+ 
+ DEVICE          VARCHAR(20) DEFAULT  'PC' COMMENT '장치',
+ REGUSERID       VARCHAR(40)               COMMENT '등록자아이디',
+ REGDATE         DATETIME                  COMMENT '등록일시',
+ CHGUSERID       VARCHAR(40)               COMMENT'변경자아이디',
+ CHGDATE         DATETIME                  COMMENT'변경일시',
+ 
+ PRIMARY KEY (userid, MAILBOXID, MAILID)
+) COMMENT 'MAIL 개인메일 함별 링크 정보' ;
+
+-- T_MAIL_POP3SMTP 김현준
 
 create table T_MAIL_POP3SMTP (
- USERID VARCHAR (40) not null comment '사용자아이디',
- EMAIL VARCHAR (200) not null comment '이메일',
- SENDERNAME VARCHAR (100) not null comment '보내는사람이름',
- POP3IMAPTYPE VARCHAR (10) not null comment 'POP3 or IMAP',
- POP3ID VARCHAR (60) not null comment 'POP3아이디',
- POP3PASSWD VARCHAR (100) not null comment 'POP3패스워드',
- POP3SERVER VARCHAR (60) not null comment 'POP3서버',
- POP3PORT INTEGER (4) not null default 0 comment 'POP3포트',
- POP3SSLYN CHAR (1) not null default 'N' comment 'POP3SSL여부',
- POP3SAMEUSEYN CHAR (18) not null default 'Y' comment 'POP3동일사용여부',
- SMTPID VARCHAR (2) comment 'SMTP아이디',
- SMTPPASSWD VARCHAR (100) comment 'SMTP패스워드',
- SMTPSERVER VARCHAR (60) comment 'SMTP서버',
- SMTPSCRTYYN CHAR (1) not null default 'Y' comment 'SMTP보안인증여부',
- SMTPPORT INTEGER (4) default 0 comment 'SMTP포트',
- SMTPCNNCTTYPE VARCHAR (20) default 'SSL' comment 'SMTP연결유형',
- MAILBOXID VARCHAR (40) not null comment '메일박스아이디',
- ORGMAILSAVEYN CHAR (1) not null default 'N' comment '원본보관여부',
- DELSYNCYN CHAR (1) not null default 'N' comment '디폴트메일여부',
- COMPANYMAILYN CHAR (1) not null default 'N' comment '회사메일여부',
- LASTACCESSTIME DATETIME comment '마지막접속일시',
- LASTFAILTIME DATETIME comment '마지막실패일시',
- RCVCNT INTEGER (10) not null default 0 comment '수신건수',
- DELCNT INTEGER (10) not null default 0 comment '삭제건수',
- FAILCNT INTEGER (10) not null default 0 comment '실패건수',
- ACCESSCNT INTEGER (10) not null default 0 comment '접속건수',
- TODAYRCVCNT INTEGER (10) not null default 0 comment '오늘수신건수',
- TODAYDELCNT INTEGER (10) not null default 0 comment '오늘삭제건수',
- TODAYFAILCNT INTEGER (10) not null default 0 comment '오늘실패건수',
- TODAYACCESSCNT INTEGER (10) not null default 0 comment '오늘접속건수',
- COMPANYID varchar(40) comment '회사아이디',
+ USERID         VARCHAR (40)  NOT  NULL COMMENT  '사용자아이디',
+ EMAIL          VARCHAR (200) NOT  NULL COMMENT  '이메일',
+ SENDERNAME     VARCHAR (100) NOT  NULL COMMENT  '보내는사람이름',
+ POP3IMAPTYPE   VARCHAR (10)  NOT  NULL COMMENT  'POP3 or IMAP',
+ POP3ID         VARCHAR (60)  NOT  NULL COMMENT  'POP3아이디',
+ POP3PASSWD     VARCHAR (100) NOT  NULL COMMENT  'POP3패스워드',
+ POP3SERVER     VARCHAR (60)  NOT  NULL                COMMENT  'POP3서버',
+ POP3PORT       INTEGER (4)   NOT  NULL  DEFAULT 0     COMMENT  'POP3포트',
+ POP3SSLYN      CHAR (1)      NOT  NULL  DEFAULT 'N'   COMMENT  'POP3SSL여부',
+ POP3SAMEUSEYN  CHAR (18)     NOT  NULL  DEFAULT 'Y'   COMMENT  'POP3동일사용여부',
+ SMTPID         VARCHAR (2)                            COMMENT  'SMTP아이디',
+ SMTPPASSWD     VARCHAR (100)                          COMMENT  'SMTP패스워드',
+ SMTPSERVER     VARCHAR (60)                           COMMENT  'SMTP서버',
+ SMTPSCRTYYN    CHAR (1)      NOT  NULL  DEFAULT 'Y'   COMMENT  'SMTP보안인증여부',
+ SMTPPORT       INTEGER (4)              DEFAULT 0     COMMENT  'SMTP포트',
+ SMTPCNNCTTYPE  VARCHAR (20)             DEFAULT 'SSL' COMMENT  'SMTP연결유형',
+ MAILBOXID      VARCHAR (40) NOT  NULL                 COMMENT  '메일박스아이디',
+ ORGMAILSAVEYN  CHAR (1)     NOT  NULL   DEFAULT  'N'  COMMENT  '원본보관여부',
+ DELSYNCYN      CHAR (1)     NOT  NULL   DEFAULT  'N'  COMMENT  '디폴트메일여부',
+ COMPANYMAILYN  CHAR (1)     NOT  NULL   DEFAULT  'N'  COMMENT  '회사메일여부',
+ LASTACCESSTIME DATETIME                               COMMENT  '마지막접속일시',
+ LASTFAILTIME   DATETIME                               COMMENT  '마지막실패일시',
+ RCVCNT         INTEGER (10) NOT  NULL   DEFAULT  0    COMMENT  '수신건수',
+ DELCNT         INTEGER (10) NOT  NULL   DEFAULT  0    COMMENT  '삭제건수',
+ FAILCNT        INTEGER (10) NOT  NULL   DEFAULT  0    COMMENT  '실패건수',
+ ACCESSCNT      INTEGER (10) NOT  NULL   DEFAULT  0    COMMENT  '접속건수',
+ TODAYRCVCNT    INTEGER (10) NOT  NULL   DEFAULT  0    COMMENT  '오늘수신건수',
+ TODAYDELCNT    INTEGER (10) NOT  NULL   DEFAULT  0    COMMENT  '오늘삭제건수',
+ TODAYFAILCNT   INTEGER (10) NOT  NULL   DEFAULT  0    COMMENT  '오늘실패건수',
+ TODAYACCESSCNT INTEGER (10) NOT  NULL   DEFAULT  0    COMMENT  '오늘접속건수',
+ COMPANYID      VARCHAR (40)                           COMMENT  '회사아이디',
  
- DEVICE    VARCHAR (20) DEFAULT  'PC' COMMENT  '장치',
- REGUSERID VARCHAR (40)               COMMENT  '등록자아이디',
- REGDATE   DATETIME                   COMMENT  '등록일시',
- CHGUSERID VARCHAR (40)               COMMENT  '변경자아이디',
- CHGDATE   DATETIME                   COMMENT  '변경일시',
+ DEVICE         VARCHAR (20) DEFAULT  'PC' COMMENT  '장치',
+ REGUSERID      VARCHAR (40)               COMMENT  '등록자아이디',
+ REGDATE        DATETIME                   COMMENT  '등록일시',
+ CHGUSERID      VARCHAR (40)               COMMENT  '변경자아이디',
+ CHGDATE        DATETIME                   COMMENT  '변경일시',
  
  PRIMARY KEY (USERID, EMAIL)
 ) COMMENT 'POP3와 SMTP 정보' ;
@@ -180,17 +181,17 @@ create table T_MAIL_POP3SMTP (
 -- t_mail_pop3uid 
 
 create table t_mail_pop3uid(
-  mailid     VARCHAR (40) PRIMARY KEY  COMMENT '메일아이디',
-  userid     VARCHAR (40)              COMMENT '사용자아이디',
-  email      VARCHAR (200)             COMMENT '이메일' ,
-  emailuid   VARCHAR (100) NOT NULL    COMMENT '이메일UID',
-  delyn      CHAR (1)     DEFAULT 'N'  COMMENT '삭제여부',
+  mailid     VARCHAR (40)   PRIMARY KEY         COMMENT '메일아이디',
+  userid     VARCHAR (40)                       COMMENT '사용자아이디',
+  email      VARCHAR (200)                      COMMENT '이메일' ,
+  emailuid   VARCHAR (100) NOT NULL             COMMENT '이메일UID',
+  delyn      CHAR (1)              DEFAULT 'N'  COMMENT '삭제여부',
   
-  device     VARCHAR (20) DEFAULT 'PC' COMMENT '장치',
-  reguserid  VARCHAR (40)              COMMENT '등록자아이디',
-  regdate    DATETIME                  COMMENT '등록일시',
-  chguserid  VARCHAR (40)              COMMENT '변경자아이디',
-  chgdate    DATETIME                  COMMENT '변경일시'
+  device     VARCHAR (20)          DEFAULT 'PC' COMMENT '장치',
+  reguserid  VARCHAR (40)                       COMMENT '등록자아이디',
+  regdate    DATETIME                           COMMENT '등록일시',
+  chguserid  VARCHAR (40)                       COMMENT '변경자아이디',
+  chgdate    DATETIME                           COMMENT '변경일시'
 ) COMMENT 'MAIL POP3 수신메일 메타 정보' ;
 
 -- 박승균 t_mail_rcvinfo
@@ -213,21 +214,21 @@ create table t_mail_rcvinfo (
 -- T_MAIL_RCVLIST 석건원
 
 CREATE TABLE T_MAIL_RCVLIST (
- RCVLISTID  VARCHAR(40) PRIMARY KEY      COMMENT '수신목록아이디',
- MAILID     VARCHAR(40) NOT NULL         COMMENT '메일아이디',
- RCVTYPE    VARCHAR(20) NOT NULL         COMMENT '수신타입(수신,참조,숨은참조)',
- RCVIDTYPE  VARCHAR(20) NOT NULL         COMMENT '수신자아이디타입(EMAIL/USERID)',
- RCVUSERID  VARCHAR(200) NOT NULL        COMMENT '수신자아이디',
- RCVINFO    VARCHAR(300) NOT NULL        COMMENT '수신자정보부',
- OVERCAPYN  CHAR(1) NOT NULL DEFAULT 'N' COMMENT '용량초과여부',
- READDATE   DATETIME                     COMMENT '열람일시',
- DEVICE     VARCHAR(20) DEFAULT 'PC'     COMMENT '장치',
- SENDFAILYN CHAR(1),
+ RCVLISTID  VARCHAR(40) PRIMARY KEY            COMMENT '수신목록아이디',
+ MAILID     VARCHAR(40)  NOT NULL              COMMENT '메일아이디',
+ RCVTYPE    VARCHAR(20)  NOT NULL              COMMENT '수신타입(수신,참조,숨은참조)',
+ RCVIDTYPE  VARCHAR(20)  NOT NULL              COMMENT '수신자아이디타입(EMAIL/USERID)',
+ RCVUSERID  VARCHAR(200) NOT NULL              COMMENT '수신자아이디',
+ RCVINFO    VARCHAR(300) NOT NULL              COMMENT '수신자정보부',
+ OVERCAPYN  CHAR(1)      NOT NULL DEFAULT 'N'  COMMENT '용량초과여부',
+ READDATE   DATETIME                           COMMENT '열람일시',
+ DEVICE     VARCHAR(20)           DEFAULT 'PC' COMMENT '장치',
+ SENDFAILYN CHAR(1) ,
  
- REGUSERID VARCHAR(40)          COMMENT '등록자아이디',
- REGDATE   DATETIME             COMMENT '등록일시',
- CHGUSERID VARCHAR(40)          COMMENT '변경자아이디',
- CHGDATE   DATETIME             COMMENT '변경일시' 
+ REGUSERID VARCHAR(40) COMMENT '등록자아이디',
+ REGDATE   DATETIME    COMMENT '등록일시',
+ CHGUSERID VARCHAR(40) COMMENT '변경자아이디',
+ CHGDATE   DATETIME    COMMENT '변경일시' 
 ) COMMENT 'MAIL 받는사람 메타정보' ;
 
 -- T_MAIL_RCVLIST_SEARCH
