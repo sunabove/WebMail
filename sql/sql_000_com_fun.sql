@@ -18,7 +18,6 @@ SELECT * FROM n WHERE no < 100 ;
 -- random text function
 DROP FUNCTION if EXISTS MYTEXT ;
 ​
-DELIMITER //  
 CREATE FUNCTION MYTEXT ( n INT )  
 RETURNS VARCHAR(200) 
 BEGIN  
@@ -38,9 +37,8 @@ BEGIN
    	SET idx = idx + 1 ; 
    END WHILE ;  
    RETURN t_all ;  
-END; //  
-DELIMITER ; 
-​
+END;  
+
 SELECT mytext( 8 ) FROM DUAL ;
 -- // random text function
 ​

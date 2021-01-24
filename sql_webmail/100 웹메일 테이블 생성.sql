@@ -1,20 +1,20 @@
--- USER --
-DROP TABLE if EXISTS t_mail CASCADE ;
-DROP TABLE if EXISTS t_mail_sendinfo CASCADE; 
+-- drop table all --
+DROP TABLE if EXISTS t_mail                CASCADE ;
+DROP TABLE if EXISTS t_mail_sendinfo       CASCADE ; 
 drop TABLE if exists t_mail_rcvlist_search CASCADE ;
-DROP TABLE if EXISTS t_mail_pop3uid CASCADE ; 
-DROP TABLE if EXISTS t_mail_boxlink CASCADE ; 
-DROP TABLE IF EXISTS t_mail_status CASCADE ;
-DROP TABLE if EXISTS t_mail_pop3smtp CASCADE ;
-DROP TABLE IF EXISTS t_mail_rcvinfo CASCADE ;
-DROP TABLE if EXISTS t_mail_simplecontent CASCADE ; 
-DROP TABLE IF EXISTS t_mail_mailbox CASCADE ;
-DROP TABLE IF EXISTS t_mail_rcvlist CASCADE ;
-DROP TABLE if EXISTS t_mail_usesize CASCADE ;
+DROP TABLE if EXISTS t_mail_pop3uid        CASCADE ; 
+DROP TABLE if EXISTS t_mail_boxlink        CASCADE ; 
+DROP TABLE IF EXISTS t_mail_status         CASCADE ;
+DROP TABLE if EXISTS t_mail_pop3smtp       CASCADE ;
+DROP TABLE IF EXISTS t_mail_rcvinfo        CASCADE ;
+DROP TABLE if EXISTS t_mail_simplecontent  CASCADE ; 
+DROP TABLE IF EXISTS t_mail_mailbox        CASCADE ;
+DROP TABLE IF EXISTS t_mail_rcvlist        CASCADE ;
+DROP TABLE if EXISTS t_mail_usesize        CASCADE ;
 
 DROP VIEW  if EXISTS user ;
-DROP TABLE if EXISTS user CASCADE ; 
-DROP TABLE if EXISTS t_USER CASCADE ; 
+DROP TABLE if EXISTS user   CASCADE ; 
+DROP TABLE if EXISTS t_user CASCADE ; 
 
 -- SYSTEM FILES 
 

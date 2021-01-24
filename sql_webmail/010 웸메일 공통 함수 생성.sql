@@ -1,4 +1,4 @@
--- sample t_mail record insert
+-- sample t_mail record insert ; 
 
 DROP TABLE if EXISTS n ;
 
@@ -13,14 +13,13 @@ CREATE TABLE n AS (
 
 SELECT * FROM n WHERE no < 10 ;
 
--- random text function
+-- random text function ; 
 DROP FUNCTION if EXISTS MY_TEXT ;
 
-DELIMITER //  
 CREATE FUNCTION MY_TEXT ( n INT )  
 RETURNS VARCHAR(200) 
 BEGIN  
-   DECLARE t_all VARCHAR(200) ;
+  DECLARE t_all VARCHAR(255) ;
 	DECLARE idx INT ; 
 	DECLARE c VARCHAR(1) ;
 	DECLARE alpha VARCHAR( 255 ) ;
@@ -35,9 +34,26 @@ BEGIN
    	SET t_all = CONCAT( t_all, c ) ;
    	SET idx = idx + 1 ; 
    END WHILE ;  
+   
    RETURN t_all ;  
-END; //  
-DELIMITER ; 
+END;  
 
 SELECT my_text( 8 ) FROM DUAL ;
--- // random text function
+
+-- random integer function ; 
+
+DROP FUNCTION if EXISTS RANDINT ;
+
+CREATE FUNCTION RANDINT ( n INT )  
+RETURNS INT 
+BEGIN  
+  DECLARE t INT ; 
+  SET t = FLOOR( RAND( )*n ) ; 
+  RETURN t ;
+END;
+
+SELECT RANDINT( 100 ) FROM DUAL ;
+
+-- // random integer ; 
+
+-- end of file ; 
