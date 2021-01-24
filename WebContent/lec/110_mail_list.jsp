@@ -7,11 +7,28 @@
 
 <jsp:include page="./010_common.jsp" /> 
 
+<c:set var="valid" value="${true}" />
+
 <c:if test="${ empty sessionScope.userid }">
 	<c:if test="${ not fn:contains( pageContext.request.servletPath, 'login.jsp' ) }">
+		<c:set var="valid" value="${false}" />
 		<c:redirect url="100_user_login.jsp">
 		</c:redirect>
 	</c:if>
+</c:if>
+
+<c:if test="${ valid }" >
+	<sql:query dataSource="${snapshot}" var="mailList">
+		SELECT 
+		mailid, title, mailsize, 
+		rcvUserId , rcv.name AS rcvUserName,
+		NVL( m.chgDate, m.regDate ) AS rcvDate, 
+		'' as z
+		FROM 
+		t_mail AS m
+		JOIN t_user rcv ON( rcvUserId = userId )
+		LIMIT 0, 10 
+	</sql:query>
 </c:if>
 
 <html lang="ko" >
@@ -99,23 +116,27 @@
 		<div id="main-nano-wrapper" class="nano has-scrollbar">
 			<div class="nano-content" tabindex="0" style="right: -17px;">
 				<ul class="message-list">
-					<li class="green-dot unread">
-						<div class="col col-1">
-							<span class="dot"></span>
-							<div class="checkbox-wrapper">
-								<input type="checkbox" id="chk2"> <label for="chk2" class="toggle"></label>
+					<!-- mail list -->
+					<c:forEach var="row" items="${mailList.rows}">
+			            <li class="green-dot unread">
+							<div class="col col-1">
+								<span class="dot"></span>
+								<div class="checkbox-wrapper">
+									<input type="checkbox" id="chk2"> <label for="chk2" class="toggle"></label>
+								</div>
+								<p class="title"> ${ row.title } </p>
+								<div class="star-star-toggle glyphicon glyphicon-star-empty"></div>
 							</div>
-							<p class="title">Conceptboard</p>
-							<div class="star-star-toggle glyphicon glyphicon-star-empty"></div>
-						</div>
-						<div class="col col-2">
-							<div class="subject">
-								Please complete your Conceptboard signup &nbsp;–&nbsp; <span class="teaser">You recently created a Conceptboard account, but you have not yet confirmed your email. Your email is used for notifications about board activity, invites, as well as account
-									related tasks (like password retrieval).</span>
+							<div class="col col-2">
+								<div class="subject">
+									Please complete your Conceptboard signup &nbsp;–&nbsp; <span class="teaser">You recently created a Conceptboard account, but you have not yet confirmed your email. Your email is used for notifications about board activity, invites, as well as account
+										related tasks (like password retrieval).</span>
+								</div>
+								<div class="date"> ${ row.rcvDate } </div>
 							</div>
-							<div class="date">11:45 am</div>
-						</div>
-					</li>				
+						</li>
+			         </c:forEach>					
+					<!-- // mail list -->	
 				</ul>
 				
 				<a href="#" class="load-more-link">

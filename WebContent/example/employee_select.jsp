@@ -20,7 +20,7 @@
          url = "jdbc:mariadb://localhost:3306/XCLICK_DEPLOY3_LARGE_DATA"
          user = "XCLICK_DEPLOY3"  password = "admin"/>
  
-      <sql:query dataSource = "${snapshot}" var = "result">
+      <sql:query dataSource="${snapshot}" var="result">
          SELECT * from Employees ;
       </sql:query>
  
@@ -32,7 +32,7 @@
             <th>Age</th>
          </tr>
          
-         <c:forEach var = "row" items = "${result.rows}">
+         <c:forEach var="row" items="${result.rows}">
             <tr>
                <td><c:out value = "${row.id}"/></td>
                <td><c:out value = "${row.first}"/></td>
