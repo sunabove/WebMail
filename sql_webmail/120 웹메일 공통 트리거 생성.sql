@@ -1,6 +1,6 @@
 ﻿-- webmail common trigger
 
--- 0 user
+-- 0 t_user
 
 CREATE TRIGGER t_user_trg_01_ins 
 BEFORE INSERT ON t_user FOR EACH ROW 

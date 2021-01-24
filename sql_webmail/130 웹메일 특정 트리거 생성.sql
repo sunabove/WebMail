@@ -3,11 +3,12 @@
 -- 0 t_user
 
 -- 사용자를 생성하면 t_usesize에 레코드를 추가하여 , tocnt와 readcnt를 0 으로 설정함.
-DROP TRIGGER t_user_01_ins ;
+-- DROP TRIGGER t_user_trg_usesize_mailbox_ins ;
 
-CREATE TRIGGER t_user_01_ins 
+CREATE TRIGGER t_user_trg_usesize_mailbox_ins 
 AFTER INSERT ON t_user FOR EACH ROW 
 BEGIN 
+
   -- 개인별 사용량 추가 
   INSERT INTO t_mail_usesize 
          ( userid, totcnt, readcnt )
@@ -18,12 +19,11 @@ BEGIN
   INSERT INTO t_mail_mailbox
          ( userid, mailboxid , mailboxname , sortno )
   SELECT NEW.userid, UUID(), 'InBox', 0 
-  FROM dual ;  
+  FROM dual ; 
   
 END ;
 
 -- 1 mail
-
 
 -- 2 simple content / 메일 본문 내용
 
@@ -42,6 +42,24 @@ END ;
 -- 9 rcvlist_search / 받는 사람 검색 정보 
 
 -- 10 sendinfo / 보낸 사람 메터 장보 
+
+-- DROP TRIGGER t_mail_sendinfo_trg_usesize ;
+
+CREATE TRIGGER t_mail_sendinfo_trg_usesize 
+AFTER INSERT ON t_mail_sendinfo FOR EACH ROW 
+BEGIN 
+
+  -- 개인별 사용량에 tocnt 증가 
+  UPDATE t_mail_usesize tmu
+  SET totcnt = totcnt + 1 
+  WHERE tmu.userid = NEW.senduserid ;
+
+  -- 메일 상태 추가
+  INSERT INTO t_mail_status
+          (mailid, userid, readyn )
+  VALUES ( NEW.mailid, NEW.senduserid, 'Y' );
+  
+END ;
 
 -- 11 status / 사용자별 메일 상태 
 
