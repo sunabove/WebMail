@@ -132,7 +132,9 @@
 									Please complete your Conceptboard signup &nbsp;–&nbsp; <span class="teaser">You recently created a Conceptboard account, but you have not yet confirmed your email. Your email is used for notifications about board activity, invites, as well as account
 										related tasks (like password retrieval).</span>
 								</div>
-								<div class="date"> ${ row.rcvDate } </div>
+								<div class="date"> 
+									${ row.rcvDate } 
+								</div>
 							</div>
 						</li>
 			         </c:forEach>					
