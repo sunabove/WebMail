@@ -8,8 +8,8 @@
 <jsp:include page="./110_mail_list.jsp" />
 
 <c:if test="${ empty sessionScope.userid }">
-	<c:if test="${ not fn:contains( pageContext.request.servletPath, 'login.jsp' ) }">
-		<c:redirect url="100_user_login.jsp">
-		</c:redirect>
-	</c:if>
+	<%-- 로그인 세션 체크 --%>
+	<c:set var="valid" value="${false}" />
+	<c:redirect url="100_user_login.jsp">
+	</c:redirect>
 </c:if>

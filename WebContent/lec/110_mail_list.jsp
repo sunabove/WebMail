@@ -10,62 +10,58 @@
 <c:set var="valid" value="${true}" />
 
 <c:if test="${ empty sessionScope.userid }">
-	<c:if test="${ not fn:contains( pageContext.request.servletPath, 'login.jsp' ) }">
-		<c:set var="valid" value="${false}" />
-		<c:redirect url="100_user_login.jsp">
-		</c:redirect>
-	</c:if>
+	<%-- 로그인 세션 체크 --%>
+	<c:set var="valid" value="${false}" />
+	<c:redirect url="100_user_login.jsp">
+	</c:redirect>
 </c:if>
-
-&lt; &gt;
 
 <c:if test="${ valid }" >
 	<sql:query dataSource="${snapshot}" var="mailList">
 		SELECT 
-		( FLOOR( ( ROW_NUMBER() OVER(ORDER BY tm.RCVDATE) )/10 ) + 1 ) AS pno ,
-		ROW_NUMBER() OVER(ORDER BY tm.RCVDATE) rno , 
-		tu.userid, tm.mailid, tu.name, tm.title ,tms.simplecontent AS content ,
-		tm.RCVUSERID, tm.RCVDATE, tmr.rcvtype , 
-		'' AS z
-		FROM t_user tu
-		LEFT JOIN t_mail tm ON ( tu.userid = tm.rcvUserId AND tu.name='admin' )
-		LEFT JOIN t_mail_rcvinfo tmr ON tm.MAILID = tmr.mailid
-		LEFT JOIN t_mail_simplecontent tms ON tm.MAILID = tms.mailid
-		WHERE 1 = 1 
-		AND tm.mailid IS NOT NULL 
-		AND ( LENGTH( '' ) = 0 OR INSTR( tm.title, '' ) = 1 )
-		ORDER BY tm.RCVDATE 
-		LIMIT 20, 10
+		  ( FLOOR( rno/row_cnt ) + 1) AS pno,
+		  a.*
+		FROM ( 
+		  SELECT 
+		  ROW_NUMBER() OVER(ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE ) rno , 
+		  tm.mailid AS mailid , 
+		  LAG( tm.mailid  ) OVER( ORDER BY tm.rcvDate ) AS prev_mailid, 
+		  LEAD( tm.mailid ) OVER( ORDER BY tm.rcvDate ) AS next_mailid, 
+		  tu.userid, tu.name, tm.title ,tms.simplecontent AS content ,
+		  tm.RCVUSERID, tm.RCVDATE, tmr.rcvtype , 
+		  row_cnt 
+		  FROM 
+		  ( SELECT ? AS row_cnt, ? AS srch_keyword FROM dual ) AS param , 
+		  t_user tu
+		  LEFT JOIN t_mail tm ON ( tu.userid = tm.rcvUserId AND tu.name='admin' )
+		  LEFT JOIN t_mail_rcvinfo tmr ON tm.MAILID = tmr.mailid
+		  LEFT JOIN t_mail_simplecontent tms ON tm.MAILID = tms.mailid
+		  WHERE 1 = 1 
+		  AND tm.mailid IS NOT NULL 
+		  AND ( LENGTH( srch_keyword ) = 0 OR SIGN( INSTR( tm.title, srch_keyword ) ) = 1 )
+		  ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE 
+		  LIMIT 0, 10
+		) AS a
+		<sql:param value="10"/> <%-- row count --%>
+		<sql:param value="${param.srch_keyword}"  /> <%-- srch keyworkd --%>		
 	</sql:query>
 </c:if>
 
 <html lang="ko" >
 <head>
-<title>메일 목록 ${a} ${pageContext.request.servletPath} ${ sessionScope.userid }</title>
+<title>메일 목록 ${pageContext.request.servletPath} ${ sessionScope.userid }</title>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 
-<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
 <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
-<link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
 
 <link href="./rsc/style_01.css" rel="stylesheet" media="" data-href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500" >
 <link href="./rsc/style_02.css" rel="stylesheet" media="" data-href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
 <link href="./rsc/style_03.css" rel="stylesheet" media="" data-href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link href="./rsc/style_04.css" rel="stylesheet" > 
 
-<script>
-  window.console = window.console || function(t) {};
-</script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
-<script>
-  if (document.location.search.match(/type=embed/gi)) {
-    window.parent.postMessage("resize", "*");
-  }
-</script>
 
 <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -73,7 +69,7 @@
 
 </head>
 
-<body translate="no">
+<body>
 	<aside id="sidebar" class="nano has-scrollbar">
 		<div class="nano-content" tabindex="0" style="right: -17px;">
 			<div class="logo-container">
@@ -100,7 +96,7 @@
 		<header class="header">
 			<div class="search-box">
 				<form >
-					<input placeholder="검색 ..." type="text" name="srch_title" value="${ param.srch_title }"/>
+					<input placeholder="검색 ..." type="text" name="srch_keyword" value="${ param.srch_keyword }"/>
 					<span class="icon glyphicon glyphicon-search"></span>
 				</form>
 			</div>

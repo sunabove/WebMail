@@ -7,6 +7,11 @@
 
 <jsp:include page="./010_common.jsp" />
 
+<c:if test="${ empty sessionScope.userid }">
+	<%-- 로그인 세션 체크 --%>
+	<c:set var="valid" value="${false}" /> 
+</c:if>
+
 <div class="header">
 	<h1 class="page-title">
 		<a class="icon circle-icon glyphicon glyphicon-chevron-left trigger-message-close"></a>Process<span class="grey"></span>

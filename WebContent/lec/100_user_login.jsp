@@ -8,6 +8,8 @@
 <jsp:include page="./010_common.jsp" />
 
 <c:if test="${ not empty param.name and not empty param.passwd }">	
+	<%-- 로그인 처리 --%>
+	
 	<sql:query dataSource = "${snapshot}" var="result">
 	   SELECT userid, name FROM t_user 
 	   where name = ? and passwd = ? 
@@ -24,6 +26,8 @@
 	</c:forEach> 
 	
 	<c:if test="${ not empty sessionScope.userid }"> 
+		<%-- 로그인 성공하면, 목록 화면으로 이동 --%>
+		
 		<c:redirect url="110_mail_list.jsp">
 		</c:redirect>
 	</c:if>
