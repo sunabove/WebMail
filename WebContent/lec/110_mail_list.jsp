@@ -33,7 +33,7 @@
 		LEFT JOIN t_mail_simplecontent tms ON tm.MAILID = tms.mailid
 		WHERE 1 = 1 
 		AND tm.mailid IS NOT NULL 
-		AND ( LENGTH( 'A' ) = 0 OR SIGN( INSTR( tm.title, 'A' ) ) = 1 ) -- LIKE '%A%'
+		AND ( LENGTH( '' ) = 0 OR INSTR( tm.title, '' ) = 1 )
 		ORDER BY tm.RCVDATE 
 		LIMIT 20, 10
 	</sql:query>
@@ -99,11 +99,10 @@
 		<div class="overlay"></div>
 		<header class="header">
 			<div class="search-box">
-				<input placeholder="검색 ..." type="text">
-				<!-- 
-				<input type="date" >
-				 -->
-				<span class="icon glyphicon glyphicon-search"></span>
+				<form >
+					<input placeholder="검색 ..." type="text" name="srch_title" value="${ param.srch_title }"/>
+					<span class="icon glyphicon glyphicon-search"></span>
+				</form>
 			</div>
 			<h1 class="page-title">
 				<a class="sidebar-toggle-btn trigger-toggle-sidebar">
@@ -126,22 +125,26 @@
 				<ul class="message-list">
 					<!-- mail list -->
 					<c:forEach var="row" items="${mailList.rows}">
-			            <li class="green-dot unread">
+			            <li class="green-dot unread"  title="${row.rno}" >
 							<div class="col col-1">
 								<span class="dot"></span>
-								<div class="checkbox-wrapper">
-									<input type="checkbox" id="chk2"> <label for="chk2" class="toggle"></label>
+								<div class="checkbox-wrapper" title="${row.rno}" >
+									<input type="checkbox" id="chk2" > 
+									<label for="chk2" class="toggle"></label>
 								</div>
-								<p class="title"> ${ row.title } </p>
+								<p class="title" title="${ row.mailid }" > 
+									${ row.title } 
+								</p>
 								<div class="star-star-toggle glyphicon glyphicon-star-empty"></div>
 							</div>
 							<div class="col col-2">
-								<div class="subject">
-									Please complete your Conceptboard signup &nbsp;–&nbsp; <span class="teaser">You recently created a Conceptboard account, but you have not yet confirmed your email. Your email is used for notifications about board activity, invites, as well as account
-										related tasks (like password retrieval).</span>
+								<div class="subject" style="text-overflow: ellipsis;" >
+									${ row.content }  
 								</div>
-								<div class="date"> 
-									${ row.rcvDate } 
+								<div class="date" 
+									title="<fmt:formatDate pattern='yyyy-MM-dd HH:mm:ss' value='${row.rcvDate}' />"
+								> 
+									<fmt:formatDate pattern="yyyy-MM-dd" value="${row.rcvDate}" />
 								</div>
 							</div>
 						</li>
