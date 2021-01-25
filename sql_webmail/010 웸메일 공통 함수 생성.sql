@@ -38,7 +38,7 @@ BEGIN
    RETURN t_all ;  
 END;  
 
-SELECT my_text( 8 ) FROM DUAL ;
+SELECT my_text( 8 ) FROM DUAL   ;
 
 -- random integer function ; 
 
@@ -52,7 +52,7 @@ BEGIN
   RETURN t ;
 END;
 
-SELECT RANDINT( 100 ) FROM DUAL ;
+SELECT RANDINT( 100 ) FROM DUAL  ;
 
 -- // random integer ; 
 

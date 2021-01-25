@@ -2,18 +2,22 @@
 
 -- 0 t_user
 
-CREATE TRIGGER t_user_trg_01_ins 
+CREATE TRIGGER t_user_trg_01_ins -- 함수 이름 
 BEFORE INSERT ON t_user FOR EACH ROW 
 BEGIN 
-  SET NEW.regUserId = CURRENT_USER() ;
-  SET NEW.regDate = CURRENT_TIMESTAMP() ; 
+
+  SET NEW.regUserId = NVL( NEW.regUserId, CURRENT_USER() );
+  SET NEW.regDate = NVL( New.regData, CURRENT_TIMESTAMP() ) ; 
+
 END ;
 
 CREATE TRIGGER t_user_trg_02_upd 
 BEFORE UPDATE ON t_user FOR EACH ROW 
 BEGIN 
+  
   SET NEW.chgUserId = CURRENT_USER() ;
   SET NEW.chgDate = CURRENT_TIMESTAMP() ; 
+
 END ;
 
 -- 1 mail

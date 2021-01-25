@@ -35,7 +35,9 @@ CREATE TABLE T_USER (
  UNIQUE KEY idx_user_name ( NAME )
 );
 
-CREATE VIEW USER AS SELECT userid AS id, NAME, passwd, phone_no FROM t_user ;
+CREATE VIEW USER 
+AS SELECT userid AS id, NAME, passwd, phone_no FROM t_user 
+;
 
 -- // SYSTEM FILES --
 
