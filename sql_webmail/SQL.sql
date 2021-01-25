@@ -1,1 +1,1 @@
-﻿SELECT CURRENT_USER() FROM dual ;
+﻿SELECT * FROM t_mail, t_user WHERE mailid = userid ;

@@ -49,14 +49,18 @@ SELECT * FROM t_mail ;
 
 DELETE FROM t_mail_rcvinfo WHERE 1 = 1 ;
 DELETE FROM t_mail_rcvlist WHERE 1 = 1 ;
+DELETE FROM t_mail_status WHERE 1 = 1 ;
 
 INSERT INTO t_mail( mailId , title, mailsize, rcvUserId, rcvDate )
 VALUES ( UUID(), 'ddirdir', 100, 'john', NOW() ) ;
 
+SELECT * FROM t_mail_rcvinfo ;
+
+
 INSERT INTO t_mail_rcvinfo
-       ( rcvinfoid, mailid, rcvtype, rcvidtype, rcvname ) 
-SELECT      UUID(), mailid,    'RCV', 'EMAIL', 'john' 
-FROM t_mail WHERE rcvUserId = 'john' LIMIT 1 
+( rcvinfoid, mailid, rcvtype, rcvidtype, rcvname ) 
+SELECT  UUID() rcvinfoid, mailid, 'RCV', 'EMAIL', 'john' 
+FROM t_mail WHERE rcvUserId = 'john' 
  ;
 
 SELECT * FROM t_mail_rcvinfo ;

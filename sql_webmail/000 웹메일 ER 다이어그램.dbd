@@ -55,16 +55,16 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>-340 px</X>
-              <Y>200 px</Y>
+              <X>-400 px</X>
+              <Y>360 px</Y>
             </Location>
             <Size>
-              <Width>216 px</Width>
-              <Height>399 px</Height>
+              <Width>190 px</Width>
+              <Height>229 px</Height>
             </Size>
             <IsCollapsed>true</IsCollapsed>
             <DbOid>
-              <Path>xclick_deploy3_large_data.t_mail_sendinfo</Path>
+              <Path>xclick_deploy3_large_data.t_user</Path>
               <TypeName>Table</TypeName>
             </DbOid>
             <Compartments>
@@ -79,40 +79,16 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>-450 px</X>
-              <Y>460 px</Y>
+              <X>20 px</X>
+              <Y>360 px</Y>
             </Location>
             <Size>
-              <Width>227 px</Width>
-              <Height>314 px</Height>
+              <Width>209 px</Width>
+              <Height>484 px</Height>
             </Size>
             <IsCollapsed>true</IsCollapsed>
             <DbOid>
-              <Path>xclick_deploy3_large_data.t_mail_status</Path>
-              <TypeName>Table</TypeName>
-            </DbOid>
-            <Compartments>
-              <ConstraintsCollapsed>True</ConstraintsCollapsed>
-              <IndexesCollapsed>True</IndexesCollapsed>
-              <TriggersCollapsed>True</TriggersCollapsed>
-            </Compartments>
-          </Model>
-          <Model xsi:type="TableModel">
-            <CustomProperties>
-              <OID>3</OID>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <Location>
-              <X>70 px</X>
-              <Y>350 px</Y>
-            </Location>
-            <Size>
-              <Width>217 px</Width>
-              <Height>654 px</Height>
-            </Size>
-            <IsCollapsed>true</IsCollapsed>
-            <DbOid>
-              <Path>xclick_deploy3_large_data.t_mail</Path>
+              <Path>xclick_deploy3_large_data.t_mail_mailbox</Path>
               <TypeName>Table</TypeName>
             </DbOid>
             <Compartments>
@@ -123,15 +99,27 @@
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>4</OID>
-              <Comment>5</Comment>
-              <OutModel>1</OutModel>
-              <InModel>3</InModel>
-              <OutPort>6</OutPort>
-              <InPort>7</InPort>
+              <OID>3</OID>
+              <Comment>4</Comment>
+              <OutModel>2</OutModel>
+              <InModel>1</InModel>
+              <OutPort>5</OutPort>
+              <InPort>6</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
+              <Port>
+                <Location>
+                  <X>0 px</X>
+                  <Y>10.5 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>5</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
               <Port>
                 <Location>
                   <X>0 px</X>
@@ -144,123 +132,30 @@
                   <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
-              <Port>
+            </PortAnchors>
+            <IsManuallyRouted>false</IsManuallyRouted>
+            <DbOid>
+              <Path>xclick_deploy3_large_data.t_mail_mailbox.t_mail_box_fk_01_userid</Path>
+              <TypeName>ForeignKey</TypeName>
+            </DbOid>
+          </Model>
+          <Model xsi:type="RelationCommentModel">
+            <CustomProperties>
+              <OID>4</OID>
+              <HolderModel>3</HolderModel>
+              <Port>7</Port>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port xsi:type="LinkPort">
                 <Location>
-                  <X>108.5 px</X>
+                  <X>115 px</X>
                   <Y>0 px</Y>
                 </Location>
-                <Anchors>Left Right</Anchors>
-                <Align>Top</Align>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
                 <CustomProperties>
                   <OID>7</OID>
-                  <PortType>FloatAnchor</PortType>
-                </CustomProperties>
-              </Port>
-            </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>178.5 px</X>
-                <Y>210.5 px</Y>
-              </PointD>
-            </BendPoints>
-            <IsManuallyRouted>false</IsManuallyRouted>
-            <DbOid>
-              <Path>xclick_deploy3_large_data.t_mail_sendinfo.t_mail_sendinfo_fk_01_mailid</Path>
-              <TypeName>ForeignKey</TypeName>
-            </DbOid>
-          </Model>
-          <Model xsi:type="RelationCommentModel">
-            <CustomProperties>
-              <OID>5</OID>
-              <HolderModel>4</HolderModel>
-              <Port>8</Port>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port xsi:type="LinkPort">
-                <Location>
-                  <X>-151.25 px</X>
-                  <Y>0 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Right</Align>
-                <CustomProperties>
-                  <OID>8</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-                <LinkPortAnchor>OutPoint</LinkPortAnchor>
-              </Port>
-            </PortAnchors>
-            <CommentOffset>
-              <X>22 px</X>
-              <Y>2 px</Y>
-            </CommentOffset>
-          </Model>
-          <Model xsi:type="RelationLinkModel">
-            <CustomProperties>
-              <OID>9</OID>
-              <Comment>10</Comment>
-              <OutModel>2</OutModel>
-              <InModel>3</InModel>
-              <OutPort>11</OutPort>
-              <InPort>12</InPort>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port>
-                <Location>
-                  <X>0 px</X>
-                  <Y>10.5 px</Y>
-                </Location>
-                <Anchors>Top Bottom</Anchors>
-                <Align>Right</Align>
-                <CustomProperties>
-                  <OID>11</OID>
-                  <PortType>FloatAnchor</PortType>
-                </CustomProperties>
-              </Port>
-              <Port>
-                <Location>
-                  <X>108.5 px</X>
-                  <Y>0 px</Y>
-                </Location>
-                <Anchors>Left Right</Anchors>
-                <Align>Bottom</Align>
-                <CustomProperties>
-                  <OID>12</OID>
-                  <PortType>FloatAnchor</PortType>
-                </CustomProperties>
-              </Port>
-            </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>178.5 px</X>
-                <Y>470.5 px</Y>
-              </PointD>
-            </BendPoints>
-            <IsManuallyRouted>false</IsManuallyRouted>
-            <DbOid>
-              <Path>xclick_deploy3_large_data.t_mail_status.t_mail_status_fk_01_mailid</Path>
-              <TypeName>ForeignKey</TypeName>
-            </DbOid>
-          </Model>
-          <Model xsi:type="RelationCommentModel">
-            <CustomProperties>
-              <OID>10</OID>
-              <HolderModel>9</HolderModel>
-              <Port>13</Port>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port xsi:type="LinkPort">
-                <Location>
-                  <X>-200.75 px</X>
-                  <Y>0 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Right</Align>
-                <CustomProperties>
-                  <OID>13</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
@@ -277,7 +172,7 @@
           <Scale>1</Scale>
           <Location>
             <X>-604 px</X>
-            <Y>170.679992675781 px</Y>
+            <Y>240.359985351563 px</Y>
           </Location>
         </ViewPort>
       </Model>

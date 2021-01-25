@@ -49,9 +49,11 @@ ORDER BY NO ;
 SELECT * FROM t_user ;
 SELECT mailId , title, mailsize, rcvUserId, rcvDate, REGUSERID, REGDATE, CHGUSERID, CHGDATE FROM t_mail ;
 
-SELECT * FROM t_mail ;
+SELECT COUNT(*) FROM t_user ;
+SELECT COUNT(*) FROM t_mail ;
 
 SELECT * FROM t_mail_usesize tmu ;
 
 SELECT * FROM t_mail_mailbox ;
+
 -- end file

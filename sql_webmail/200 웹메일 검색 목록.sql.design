@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), SQL document design file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<Document>
+  <Properties>
+    <Type>SQL Document Design</Type>
+    <DatabaseProvider>59f90733-4d68-4fdf-82a7-f0fcbf5460aa</DatabaseProvider>
+    <ProviderVersion>9.0.470.0</ProviderVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </Properties>
+  <Connection>
+    <ConnectionModel>
+      <PropertyValue Name="Database">59f90733-4d68-4fdf-82a7-f0fcbf5460aa</PropertyValue>
+      <PropertyValue Name="ConnectionString" xml:space="preserve">User Id=XCLICK_DEPLOY3;Host=localhost;Database=xclick_deploy3_large_data;Character Set=utf8</PropertyValue>
+      <PropertyValue Name="ExecutionTimeout">0</PropertyValue>
+    </ConnectionModel>
+    <Database>xclick_deploy3_large_data</Database>
+  </Connection>
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="54">
+    <View Name="Design" Visible="False" />
+    <View Name="Code" Active="True" Visible="True">
+      <Data />
+    </View>
+    <View Name="Data" Visible="True" />
+    <View Name="Profiler" Visible="True">
+      <Data>
+        <ProfilerHistory>
+          <ProfilerResult Date="2021-01-25 14:37:35Z" DisplayName="" Duration="0.000349">
+            <SQL>SELECT * FROM t_mail, t_user WHERE mailid = userid </SQL>
+            <Properties>
+              <PropertiesRow>
+                <Name>ConnectionString</Name>
+                <Value>user id=XCLICK_DEPLOY3;host=localhost;database=xclick_deploy3_large_data;character set=utf8</Value>
+              </PropertiesRow>
+              <PropertiesRow>
+                <Name>ServerVersion</Name>
+                <Value>10.5.8</Value>
+              </PropertiesRow>
+              <PropertiesRow>
+                <Name>ProfilingResultTime</Name>
+                <Value>2:37:35 PM 1/25/2021</Value>
+              </PropertiesRow>
+            </Properties>
+            <Elements>
+              <Element Type="ProfileElement">
+                <ElementRow>
+                  <state>Sending data</state>
+                  <duration>0.000069</duration>
+                  <percentage>19.7707748</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Starting</state>
+                  <duration>0.000048</duration>
+                  <percentage>13.753583</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Updating status</state>
+                  <duration>0.00004</duration>
+                  <percentage>11.461318</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>init</state>
+                  <duration>0.000035</duration>
+                  <percentage>10.0286541</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Preparing</state>
+                  <duration>0.00003</duration>
+                  <percentage>8.595989</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Opening tables</state>
+                  <duration>0.000027</duration>
+                  <percentage>7.73639</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Statistics</state>
+                  <duration>0.00002</duration>
+                  <percentage>5.730659</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Optimizing</state>
+                  <duration>0.000013</duration>
+                  <percentage>3.72492862</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>closing tables</state>
+                  <duration>0.000008</duration>
+                  <percentage>2.29226375</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Freeing items</state>
+                  <duration>0.000006</duration>
+                  <percentage>1.71919787</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>table lock</state>
+                  <duration>0.000006</duration>
+                  <percentage>1.71919787</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>checking permissions</state>
+                  <duration>0.000006</duration>
+                  <percentage>1.71919787</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Starting cleanup</state>
+                  <duration>0.000006</duration>
+                  <percentage>1.71919787</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>System lock</state>
+                  <duration>0.000006</duration>
+                  <percentage>1.71919787</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Commit</state>
+                  <duration>0.000005</duration>
+                  <percentage>1.43266475</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>End of update loop</state>
+                  <duration>0.000005</duration>
+                  <percentage>1.43266475</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>After opening tables</state>
+                  <duration>0.000005</duration>
+                  <percentage>1.43266475</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Executing</state>
+                  <duration>0.000004</duration>
+                  <percentage>1.14613187</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Reset for next command</state>
+                  <duration>0.000004</duration>
+                  <percentage>1.14613187</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Unlocking tables</state>
+                  <duration>0.000003</duration>
+                  <percentage>0.859598935</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Query end</state>
+                  <duration>0.000003</duration>
+                  <percentage>0.859598935</percentage>
+                </ElementRow>
+              </Element>
+              <Element Type="ExecutionPlan">
+                <ElementRow>
+                  <table>t_user</table>
+                  <id>1</id>
+                  <select_type>SIMPLE</select_type>
+                  <type>ALL</type>
+                  <possible_keys>PRIMARY</possible_keys>
+                  <key />
+                  <key_len />
+                  <ref />
+                  <rows>2</rows>
+                  <Extra />
+                  <ParentField>1</ParentField>
+                  <KeyField>t_user2</KeyField>
+                </ElementRow>
+                <ElementRow>
+                  <table>t_mail</table>
+                  <id>1</id>
+                  <select_type>SIMPLE</select_type>
+                  <type>ALL</type>
+                  <possible_keys>PRIMARY</possible_keys>
+                  <key />
+                  <key_len />
+                  <ref />
+                  <rows>3</rows>
+                  <Extra>Using where; Using join buffer (flat, BNL join)</Extra>
+                  <ParentField>1</ParentField>
+                  <KeyField>t_mail3</KeyField>
+                </ElementRow>
+              </Element>
+              <Element Type="Status">
+                <ElementRow>
+                  <Variable_name>Bytes_received</Variable_name>
+                  <Value>80</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Bytes_sent</Variable_name>
+                  <Value>19607</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Com_select</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Empty_queries</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Handler_commit</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Handler_read_rnd_next</Variable_name>
+                  <Value>7</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_background_log_sync</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_buffer_pool_pages_data</Variable_name>
+                  <Value>142882</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_buffer_pool_pages_free</Variable_name>
+                  <Value>50678</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_buffer_pool_read_requests</Variable_name>
+                  <Value>7</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_master_thread_idle_loops</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_rows_read</Variable_name>
+                  <Value>5</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Last_query_cost</Variable_name>
+                  <Value>3.599000</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Open_files</Variable_name>
+                  <Value>55</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Open_tables</Variable_name>
+                  <Value>125</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Qcache_free_memory</Variable_name>
+                  <Value>1031376</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Queries</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Questions</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Rows_read</Variable_name>
+                  <Value>5</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Rows_tmp_read</Variable_name>
+                  <Value>554</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Select_full_join</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Select_scan</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Table_open_cache_hits</Variable_name>
+                  <Value>2</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+              </Element>
+            </Elements>
+          </ProfilerResult>
+          <ProfilerResult Date="2021-01-25 14:37:45Z" DisplayName="" Duration="0.000471">
+            <SQL>SELECT * FROM t_mail, t_user WHERE mailid = userid ;</SQL>
+            <Properties>
+              <PropertiesRow>
+                <Name>ConnectionString</Name>
+                <Value>user id=XCLICK_DEPLOY3;host=localhost;database=xclick_deploy3_large_data;character set=utf8</Value>
+              </PropertiesRow>
+              <PropertiesRow>
+                <Name>ServerVersion</Name>
+                <Value>10.5.8</Value>
+              </PropertiesRow>
+              <PropertiesRow>
+                <Name>ProfilingResultTime</Name>
+                <Value>2:37:45 PM 1/25/2021</Value>
+              </PropertiesRow>
+            </Properties>
+            <Elements>
+              <Element Type="ProfileElement">
+                <ElementRow>
+                  <state>Starting</state>
+                  <duration>0.000104</duration>
+                  <percentage>22.0806789</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Updating status</state>
+                  <duration>0.000079</duration>
+                  <percentage>16.7728233</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Sending data</state>
+                  <duration>0.000055</duration>
+                  <percentage>11.6772823</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>init</state>
+                  <duration>0.000051</duration>
+                  <percentage>10.8280249</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Opening tables</state>
+                  <duration>0.000032</duration>
+                  <percentage>6.794055</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Preparing</state>
+                  <duration>0.000031</duration>
+                  <percentage>6.581741</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Statistics</state>
+                  <duration>0.000023</duration>
+                  <percentage>4.88322735</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Optimizing</state>
+                  <duration>0.000016</duration>
+                  <percentage>3.39702749</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>table lock</state>
+                  <duration>0.000011</duration>
+                  <percentage>2.33545637</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>checking permissions</state>
+                  <duration>0.000011</duration>
+                  <percentage>2.33545637</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>closing tables</state>
+                  <duration>0.000009</duration>
+                  <percentage>1.91082811</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>After opening tables</state>
+                  <duration>0.000007</duration>
+                  <percentage>1.4861995</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Freeing items</state>
+                  <duration>0.000006</duration>
+                  <percentage>1.27388537</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>System lock</state>
+                  <duration>0.000006</duration>
+                  <percentage>1.27388537</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>End of update loop</state>
+                  <duration>0.000005</duration>
+                  <percentage>1.06157112</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Executing</state>
+                  <duration>0.000005</duration>
+                  <percentage>1.06157112</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Starting cleanup</state>
+                  <duration>0.000005</duration>
+                  <percentage>1.06157112</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Reset for next command</state>
+                  <duration>0.000005</duration>
+                  <percentage>1.06157112</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Commit</state>
+                  <duration>0.000004</duration>
+                  <percentage>0.8492569</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Unlocking tables</state>
+                  <duration>0.000003</duration>
+                  <percentage>0.6369427</percentage>
+                </ElementRow>
+                <ElementRow>
+                  <state>Query end</state>
+                  <duration>0.000003</duration>
+                  <percentage>0.6369427</percentage>
+                </ElementRow>
+              </Element>
+              <Element Type="ExecutionPlan">
+                <ElementRow>
+                  <table>t_user</table>
+                  <id>1</id>
+                  <select_type>SIMPLE</select_type>
+                  <type>ALL</type>
+                  <possible_keys>PRIMARY</possible_keys>
+                  <key />
+                  <key_len />
+                  <ref />
+                  <rows>2</rows>
+                  <Extra />
+                  <ParentField>1</ParentField>
+                  <KeyField>t_user2</KeyField>
+                </ElementRow>
+                <ElementRow>
+                  <table>t_mail</table>
+                  <id>1</id>
+                  <select_type>SIMPLE</select_type>
+                  <type>ALL</type>
+                  <possible_keys>PRIMARY</possible_keys>
+                  <key />
+                  <key_len />
+                  <ref />
+                  <rows>3</rows>
+                  <Extra>Using where; Using join buffer (flat, BNL join)</Extra>
+                  <ParentField>1</ParentField>
+                  <KeyField>t_mail3</KeyField>
+                </ElementRow>
+              </Element>
+              <Element Type="Status">
+                <ElementRow>
+                  <Variable_name>Bytes_received</Variable_name>
+                  <Value>80</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Bytes_sent</Variable_name>
+                  <Value>19620</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Com_select</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Empty_queries</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Handler_commit</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Handler_read_rnd_next</Variable_name>
+                  <Value>7</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_buffer_pool_pages_data</Variable_name>
+                  <Value>142882</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_buffer_pool_pages_free</Variable_name>
+                  <Value>50678</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_buffer_pool_read_requests</Variable_name>
+                  <Value>7</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Innodb_rows_read</Variable_name>
+                  <Value>5</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Last_query_cost</Variable_name>
+                  <Value>3.599000</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Open_files</Variable_name>
+                  <Value>55</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Open_tables</Variable_name>
+                  <Value>125</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Qcache_free_memory</Variable_name>
+                  <Value>1031376</Value>
+                  <StatusGlobal>true</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Queries</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Questions</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Rows_read</Variable_name>
+                  <Value>5</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Rows_tmp_read</Variable_name>
+                  <Value>554</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Select_full_join</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Select_scan</Variable_name>
+                  <Value>1</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+                <ElementRow>
+                  <Variable_name>Table_open_cache_hits</Variable_name>
+                  <Value>2</Value>
+                  <StatusGlobal>false</StatusGlobal>
+                </ElementRow>
+              </Element>
+            </Elements>
+          </ProfilerResult>
+        </ProfilerHistory>
+      </Data>
+    </View>
+    <View Name="PivotGrid" Visible="False" />
+  </Views>
+</Document>
