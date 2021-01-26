@@ -38,7 +38,6 @@
 	  ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE
 	) AS a
 	WHERE mailid = NVL( ?, mailid )
-	ORDER BY rno
 	
 	<sql:param value="${param.srch_keyword}" /> <%-- srch keyworkd --%>
 	<sql:param value="${param.mailid}" />		

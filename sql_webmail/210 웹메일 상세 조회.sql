@@ -1,5 +1,5 @@
-﻿SELECT 
-	  LAG( mailid  ) OVER( ORDER BY rno ) AS prev_mailid, 
+﻿	SELECT 
+	  LAG(  mailid ) OVER( ORDER BY rno ) AS prev_mailid, 
 	  LEAD( mailid ) OVER( ORDER BY rno ) AS next_mailid,
 	  a.*
 	FROM 
@@ -20,4 +20,4 @@
 		  AND ( LENGTH( srch_keyword ) = 0 OR SIGN( INSTR( tm.title, srch_keyword ) ) = 1 )
 	  ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE
 	) AS a
-	ORDER BY rno
+	WHERE mailid = NVL( ?, mailid )
