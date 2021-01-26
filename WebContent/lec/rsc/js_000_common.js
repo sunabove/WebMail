@@ -4,9 +4,9 @@
 
 jQuery(document).ready(function($) {
 
-	var cols = {},
+	var cols = {};
 
-		messageIsOpen = false;
+	var messageIsOpen = false;
 
 	cols.showOverlay = function() {
 		$('body').addClass('show-main-overlay');
@@ -20,13 +20,18 @@ jQuery(document).ready(function($) {
 	cols.showMessage = function() {
 		$('body').addClass('show-message');
 		messageIsOpen = true;
+		
+		if (typeof( loadMailView ) == 'function') {
+			loadMailView();
+		}
+		
 	};
+	
 	cols.hideMessage = function() {
 		$('body').removeClass('show-message');
 		$('#main .message-list li').removeClass('active');
 		messageIsOpen = false;
 	};
-
 
 	cols.showSidebar = function() {
 		$('body').addClass('show-sidebar');
@@ -53,8 +58,8 @@ jQuery(document).ready(function($) {
 	// When you click on a message, show it
 
 	$('#main .message-list li').on('click', function(e) {
-		var item = $(this),
-			target = $(e.target);
+		var item = $(this);
+		var target = $(e.target);
 
 		if (target.is('label')) {
 			item.toggleClass('selected');
@@ -84,8 +89,6 @@ jQuery(document).ready(function($) {
 	$('input[type=checkbox]').on('click', function(e) {
 		e.stopImmediatePropagation();
 	});
-
-
 
 	// When you click the overlay, close everything
 

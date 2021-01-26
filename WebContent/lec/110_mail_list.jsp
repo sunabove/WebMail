@@ -65,7 +65,8 @@
 
 <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script id="rendered-js" src="./rsc/js_01.js" ></script>
+<script src="./rsc/js_000_common.js" ></script>
+<script src="./rsc/js_110_mail_list.js" ></script>
 
 </head>
 
@@ -170,7 +171,8 @@
 	</main>
 	
 	<div id="message">
-		<jsp:include page="./130_mail_view.jsp" />
+		<h1> empty </h1>
+		<h2> ajax call is need to show contents </h2>
 	</div>
 
 </body>
