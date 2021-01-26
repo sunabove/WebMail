@@ -16,36 +16,43 @@
 	</c:redirect>
 </c:if>
 
-<c:if test="${ valid }" >
-	<sql:query dataSource="${snapshot}" var="mailList">
-		SELECT 
-		  ( FLOOR( rno/row_cnt ) + 1) AS pno,
-		  a.*
-		FROM ( 
-		  SELECT 
+<sql:query dataSource="${snapshot}" var="mailList">
+	<%-- 메일 목록 조회 --%>
+	
+	SELECT 
+	  ( FLOOR( rno/row_cnt ) + 1) AS pno,
+	  a.*
+	FROM 
+	( SELECT 
 		  ROW_NUMBER() OVER(ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE ) rno , 
 		  tm.mailid AS mailid , 
-		  LAG( tm.mailid  ) OVER( ORDER BY tm.rcvDate ) AS prev_mailid, 
-		  LEAD( tm.mailid ) OVER( ORDER BY tm.rcvDate ) AS next_mailid, 
 		  tu.userid, tu.name, tm.title ,tms.simplecontent AS content ,
 		  tm.RCVUSERID, tm.RCVDATE, tmr.rcvtype , 
 		  row_cnt 
-		  FROM 
-		  ( SELECT ? AS row_cnt, ? AS srch_keyword FROM dual ) AS param , 
+	  FROM 
+		  ( SELECT 
+		  	NVL(?, 10) AS row_cnt , 
+		  	NVL(?, '') AS srch_keyword ,
+		  	''
+		  	FROM dual 
+		  ) AS param , 
 		  t_user tu
-		  LEFT JOIN t_mail tm ON ( tu.userid = tm.rcvUserId AND tu.name='admin' )
+		  LEFT JOIN t_mail tm 
+		  		ON ( tu.userid = tm.rcvUserId 
+		  			AND tu.name = NVL( ?, tu.name ) 
+		  		)
 		  LEFT JOIN t_mail_rcvinfo tmr ON tm.MAILID = tmr.mailid
 		  LEFT JOIN t_mail_simplecontent tms ON tm.MAILID = tms.mailid
-		  WHERE 1 = 1 
+	  WHERE 1 = 1 
 		  AND tm.mailid IS NOT NULL 
 		  AND ( LENGTH( srch_keyword ) = 0 OR SIGN( INSTR( tm.title, srch_keyword ) ) = 1 )
-		  ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE 
-		  LIMIT 0, 10
-		) AS a
-		<sql:param value="10"/> <%-- row count --%>
-		<sql:param value="${param.srch_keyword}"  /> <%-- srch keyworkd --%>		
-	</sql:query>
-</c:if>
+	  ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE 
+	  LIMIT 0, 10
+	) AS a 
+	<sql:param value="${param.row_count }"/> <%-- row count --%>
+	<sql:param value="${param.srch_keyword}"  /> <%-- srch keyworkd --%>
+	<sql:param value="${sessionScope.username}" />			
+</sql:query>
 
 <html lang="ko" >
 <head>
@@ -76,7 +83,7 @@
 			<div class="logo-container">
 				<span class="logo glyphicon glyphicon-envelope"></span>웹메일
 			</div>
-			<a class="compose-button">홍길동님</a>
+			<a class="compose-button"> ${sessionScope.username } </a>
 			<menu class="menu-segment">
 				<ul>
 					<li class="active"><a href="#">받은 메일함<span> (43)</span></a></li>
@@ -122,24 +129,27 @@
 				<ul class="message-list">
 					<!-- mail list -->
 					<c:forEach var="row" items="${mailList.rows}">
-			            <li class="green-dot unread"  title="${row.rno}" >
+			            <li class="green-dot unread"  title="${row.rno} ${ row.mailid }"
+			            	mailid="${row.mailid}"
+			            	onclick="loadMailView( this );" 
+			            >
 							<div class="col col-1">
 								<span class="dot"></span>
-								<div class="checkbox-wrapper" title="${row.rno}" >
+								<div class="checkbox-wrapper" >
 									<input type="checkbox" id="chk2" > 
 									<label for="chk2" class="toggle"></label>
 								</div>
-								<p class="title" title="${ row.mailid }" > 
+								<p class="title"> 
 									${ row.title } 
 								</p>
 								<div class="star-star-toggle glyphicon glyphicon-star-empty"></div>
 							</div>
 							<div class="col col-2">
-								<div class="subject" style="text-overflow: ellipsis;" >
+								<div class="subject" style="overflow:hidden; text-overflow: ellipsis;" >
 									${ row.content }  
 								</div>
 								<div class="date" 
-									title="<fmt:formatDate pattern='yyyy-MM-dd HH:mm:ss' value='${row.rcvDate}' />"
+									title="<fmt:formatDate pattern='HH:mm:ss' value='${row.rcvDate}' />"
 								> 
 									<fmt:formatDate pattern="yyyy-MM-dd" value="${row.rcvDate}" />
 								</div>
@@ -172,7 +182,8 @@
 	
 	<div id="message">
 		<h1> empty </h1>
-		<h2> ajax call is need to show contents </h2>
+		<br/>
+		<h2> Ajax call is required to show the mail contents </h2>
 	</div>
 
 </body>

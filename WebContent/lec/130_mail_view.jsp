@@ -12,12 +12,54 @@
 	<c:set var="valid" value="${false}" /> 
 </c:if>
 
+<sql:query dataSource="${snapshot}" var="mailList">
+	<%-- 메일 목록 조회 --%>
+	
+	SELECT 
+	  LAG(  mailid ) OVER( ORDER BY rno ) AS prev_mailid, 
+	  LEAD( mailid ) OVER( ORDER BY rno ) AS next_mailid,
+	  a.*
+	FROM 
+	( SELECT	   
+		  ROW_NUMBER() OVER(ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE ) rno , 
+		  tm.mailid AS mailid , 
+		  tu.userid, tu.name, tm.title ,tms.simplecontent AS content ,
+		  tm.RCVUSERID, tm.RCVDATE, tmr.rcvtype , 
+	  	'' as z	   
+	  FROM 	  
+		  ( SELECT NVL(?, '') AS srch_keyword FROM dual ) AS param , 
+		  t_user tu
+		  LEFT JOIN t_mail tm ON ( tu.userid = tm.rcvUserId AND tu.name='admin' )
+		  LEFT JOIN t_mail_rcvinfo tmr ON tm.MAILID = tmr.mailid
+		  LEFT JOIN t_mail_simplecontent tms ON tm.MAILID = tms.mailid
+	  WHERE 1 = 1 
+		  AND tm.mailid IS NOT NULL 
+		  AND ( LENGTH( srch_keyword ) = 0 OR SIGN( INSTR( tm.title, srch_keyword ) ) = 1 )
+	  ORDER BY INSTR( tm.title, srch_keyword ), tm.RCVDATE
+	) AS a
+	WHERE mailid = NVL( ?, mailid )
+	ORDER BY rno
+	
+	<sql:param value="${param.srch_keyword}" /> <%-- srch keyworkd --%>
+	<sql:param value="${param.mailid}" />		
+</sql:query>
+
+<c:forEach var="row" items="${mailList.rows}">
+	<c:set var="mail" value="${ row }" />
+</c:forEach>
+
 <div class="header">
-	<h1 class="page-title">
-		<a class="icon circle-icon glyphicon glyphicon-chevron-left trigger-message-close"></a>Process<span class="grey"></span>
+	<h1 class="page-title" style="overflow:hidden; text-overflow:ellipsis;">
+		<a class="icon circle-icon glyphicon glyphicon-chevron-left trigger-message-close" />
+		<a class="icon circle-icon glyphicon glyphicon-chevron-right trigger-message-close" />
+		${mail.title}
+		<span class="grey">&nbsp;</span>
 	</h1>
 	<p>
-		From <a href="#">You</a> to <a href="#">Scott Waite</a>, started on <a href="#">March 2, 2014</a> at 2:14 pm est.
+		From <a href="#"> ${sessionScope.username } </a> 
+		to <a href="#"> ${mail.rcvUserId} </a>
+		, started on 
+		<a href="#"> <fmt:formatDate pattern='yyyy-MM-dd HH:mm:ss' value='${mail.rcvDate}' /> </a>.
 	</p>
 </div>
 
@@ -27,37 +69,21 @@
 			<li class="sent">
 				<div class="details">
 					<div class="left">
-						You
+						${sessionScope.username }
 						<div class="arrow"></div>
-						Scott
+						${mail.rcvUserId}
 					</div>
-					<div class="right">March 6, 2014, 20:08 pm</div>
+					<div class="right"> <fmt:formatDate pattern='yyyy-MM-dd HH:mm:ss' value='${mail.rcvDate}' /> </div>
 				</div>
 				<div class="message">
-					<p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-					<p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-					<p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won't bring moved seasons very, own won't all itself blessed which bring own creature forth every. Called sixth light.</p>
+					<p style="overflow:hidden; text-overflow: ellipsis;">
+						${mail.content} 
+					</p>
 				</div>
 				<div class="tool-box">
-					<a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a>
-				</div>
-			</li>
-			<li class="received">
-				<div class="details">
-					<div class="left">
-						Scott
-						<div class="arrow orange"></div>
-						You
-					</div>
-					<div class="right">March 6, 2014, 20:08 pm</div>
-				</div>
-				<div class="message">
-					<p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-					<p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-					<p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won't bring moved seasons very, own won't all itself blessed which bring own creature forth every. Called sixth light.</p>
-				</div>
-				<div class="tool-box">
-					<a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a>
+					<a href="#" class="circle-icon small glyphicon glyphicon-share-alt" />
+					<a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove" />
+					<a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag" />
 				</div>
 			</li>
 

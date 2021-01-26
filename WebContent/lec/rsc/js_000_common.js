@@ -16,15 +16,9 @@ jQuery(document).ready(function($) {
 		$('body').removeClass('show-main-overlay');
 	};
 
-
-	cols.showMessage = function() {
+	cols.showMessage = function( e ) {
 		$('body').addClass('show-message');
-		messageIsOpen = true;
-		
-		if (typeof( loadMailView ) == 'function') {
-			loadMailView();
-		}
-		
+		messageIsOpen = true; 
 	};
 	
 	cols.hideMessage = function() {
@@ -40,9 +34,6 @@ jQuery(document).ready(function($) {
 		$('body').removeClass('show-sidebar');
 	};
 
-
-	// Show sidebar when trigger is clicked
-
 	$('.trigger-toggle-sidebar').on('click', function() {
 		cols.showSidebar();
 		cols.showOverlay();
@@ -53,9 +44,6 @@ jQuery(document).ready(function($) {
 		cols.hideMessage();
 		cols.hideOverlay();
 	});
-
-
-	// When you click on a message, show it
 
 	$('#main .message-list li').on('click', function(e) {
 		var item = $(this);
@@ -72,25 +60,20 @@ jQuery(document).ready(function($) {
 					cols.hideMessage();
 					item.addClass('active');
 					setTimeout(function() {
-						cols.showMessage();
+						cols.showMessage( e );
 					}, 300);
 				} else {
 					item.addClass('active');
-					cols.showMessage();
+					cols.showMessage( e );
 				}
 				cols.showOverlay();
 			}
 		}
 	});
 
-
-	// This will prevent click from triggering twice when clicking checkbox/label
-
 	$('input[type=checkbox]').on('click', function(e) {
 		e.stopImmediatePropagation();
 	});
-
-	// When you click the overlay, close everything
 
 	$('#main > .overlay').on('click', function() {
 		cols.hideOverlay();
@@ -98,22 +81,11 @@ jQuery(document).ready(function($) {
 		cols.hideSidebar();
 	});
 
-
-
-	// Enable sexy scrollbars
 	$('.nano').nanoScroller();
-
-
-
-	// Disable links
 
 	$('a').on('click', function(e) {
 		e.preventDefault();
 	});
-
-
-
-	// Search box responsive stuff
 
 	$('.search-box input').on('focus', function() {
 		if ($(window).width() <= 1360) {
