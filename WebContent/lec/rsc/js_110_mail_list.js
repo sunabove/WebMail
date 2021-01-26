@@ -18,3 +18,5 @@ function loadMailView( e ) {
 		}
 	});
 }
+
+// -- end of file
